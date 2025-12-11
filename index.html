@@ -726,6 +726,17 @@
       background: #ecfdf5;
     }
 
+    .refresh-info {
+      text-align: center;
+      padding: 6px 12px;
+      font-size: 0.85rem;
+      color: #374151;
+      background: #e5edf9;
+      border-bottom: 1px solid #d1d9eb;
+      font-weight: 500;
+    }
+
+
     footer {
       background: #1f3044;
       color: #ffffff;
@@ -784,6 +795,10 @@
       color:#444;
       font-weight:500;">
     Checking update time…
+  </div>
+
+  <div id="refreshInfo" class="refresh-info">
+    Checking last update time…
   </div>
 
 
@@ -1536,13 +1551,17 @@
       }
 
 
-        window.addEventListener("load", () => {
-            initReportLinkChecks();
+      window.addEventListener("load", () => {
+        initReportLinkChecks();
 
-            // Wait slightly to allow HEAD checks to finish,
-            // then attach download toasts only to existing files
-            setTimeout(enableDownloadToasts, 600);
-          });
+        // Wait slightly to allow HEAD checks to finish,
+        // then attach download toasts only to existing files
+        setTimeout(enableDownloadToasts, 600);
+
+        // Load "Last updated" info from version.json
+        loadLastRefresh();
+      });
+
 
 
         // ---------- TOAST HELPERS (stacked, clickable, with icons) ----------
@@ -1635,6 +1654,54 @@
   }
 
   loadLastRefresh();
+
+  // ---------- LAST REFRESH FROM version.json ----------
+    function timeAgo(dt) {
+      const now = new Date();
+      const diffMs = now - dt;
+
+      if (diffMs < 0) return "in the future";
+
+      const diffMins = Math.round(diffMs / 60000);
+      if (diffMins < 1) return "just now";
+      if (diffMins < 60) {
+        return `${diffMins} minute${diffMins === 1 ? "" : "s"} ago`;
+      }
+
+      const diffHours = Math.round(diffMins / 60);
+      if (diffHours < 24) {
+        return `${diffHours} hour${diffHours === 1 ? "" : "s"} ago`;
+      }
+
+      const diffDays = Math.round(diffHours / 24);
+      return `${diffDays} day${diffDays === 1 ? "" : "s"} ago`;
+    }
+
+    async function loadLastRefresh() {
+      const infoEl = document.getElementById("refreshInfo");
+      if (!infoEl) return;
+
+      try {
+        // Cache-buster query param so browser doesn't use an old version
+        const res = await fetch("version.json?" + Date.now());
+        if (!res.ok) throw new Error("File not found");
+
+        const data = await res.json();
+        const dt = new Date(data.last_updated);
+
+        const dateStr = dt.toLocaleDateString("en-GB"); // 11/12/2025
+        const timeStr = dt.toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit"
+        }); // 14:25
+
+        const ago = timeAgo(dt);
+
+        infoEl.textContent = `🔄 Last updated: ${ago} (${dateStr} at ${timeStr})`;
+      } catch (e) {
+        infoEl.textContent = "⚠ Unable to load last update time";
+      }
+    }
 
   </script>
 </body>
