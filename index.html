@@ -777,6 +777,16 @@
     </div>
   </header>
 
+  <div id="refreshInfo" style="
+      text-align:center;
+      margin-top:8px;
+      font-size:0.85rem;
+      color:#444;
+      font-weight:500;">
+    Checking update time…
+  </div>
+
+
   <a id="top"></a>
 
   <!-- LOGIN / SIGN-UP AREA -->
@@ -1602,6 +1612,29 @@
           );
         }
 
+  // ---------- LOAD LAST REFRESH TIME FROM GITHUB ----------
+  async function loadLastRefresh() {
+    try {
+      const res = await fetch("version.json?" + Date.now());
+      if (!res.ok) throw new Error("File not found");
+
+      const data = await res.json();
+      const dt = new Date(data.last_updated);
+
+      const formatted =
+        dt.toLocaleDateString() +
+        " at " +
+        dt.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+
+      document.getElementById("refreshInfo").textContent =
+        "🔄 Last updated from GitHub: " + formatted;
+    } catch (e) {
+      document.getElementById("refreshInfo").textContent =
+        "⚠ Unable to load update time";
+    }
+  }
+
+  loadLastRefresh();
 
   </script>
 </body>
