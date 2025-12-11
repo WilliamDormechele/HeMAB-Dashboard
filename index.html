@@ -440,6 +440,39 @@
       z-index: 50;
     }
 
+    /* Default neutral toast */
+.toast {
+  position: fixed;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 260px;
+  max-width: 90%;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.94); /* dark navy */
+  color: #f9fafb;
+  font-size: 0.85rem;
+  text-align: center;
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  z-index: 100;
+}
+
+/* Error-type toast */
+.toast.error {
+  background: #b91c1c;      /* strong red */
+  color: #fff1f2;           /* soft pink text */
+  box-shadow: 0 6px 16px rgba(185, 28, 28, 0.5);
+}
+
+.toast.show {
+  opacity: 1;
+}
+
+
     .floating-back-top:hover {
       background: #020617;
     }
@@ -1334,12 +1367,24 @@
     // ---------- CHECK REPORT FILE AVAILABILITY ----------
       function markNoFile(link) {
         link.classList.add("no-file");
-        // Disable download behaviour
-        link.addEventListener("click", function (e) {
-          e.preventDefault();
-          alert("No QA report / query file is available for you yet.");
-        }, { once: true });
+
+        // For message, try to use the FW code text if present
+        const fwSpan = link.querySelector(".fw-code");
+        const fwCode = fwSpan ? fwSpan.textContent.trim() : "";
+
+        link.addEventListener(
+          "click",
+          function (e) {
+            e.preventDefault();
+            const msg = fwCode
+              ? `No QA report / query file is available yet for ${fwCode}.`
+              : "No QA report / query file is available yet.";
+            showToast(msg);
+          },
+          { once: true }
+        );
       }
+
 
       function initReportLinkChecks() {
         const reportLinks = document.querySelectorAll(".report-link[data-check='exists']");
@@ -1364,8 +1409,62 @@
         });
       }
 
-      // Run after page loads
-      window.addEventListener("load", initReportLinkChecks);
+      // ---------- ADD DOWNLOAD TOAST FEEDBACK ----------
+        function enableDownloadToasts() {
+          const allLinks = document.querySelectorAll(".report-link");
+
+          allLinks.forEach(link => {
+            // Skip greyed out
+            if (link.classList.contains("no-file")) return;
+
+            const fwSpan = link.querySelector(".fw-code");
+            const fwCode = fwSpan ? fwSpan.textContent.trim() : "";
+
+            // Error logs
+            if (link.classList.contains("error-link") && link.classList.contains("has-file")) {
+              link.addEventListener("click", () => {
+                showToast(`Downloading error log for ${fwCode}…`, "error");
+              });
+            }
+            // Normal reports
+            else if (link.classList.contains("has-file")) {
+              link.addEventListener("click", () => {
+                showToast(`Downloading report for ${fwCode}…`);
+              });
+            }
+          });
+        }
+
+        window.addEventListener("load", () => {
+            initReportLinkChecks();
+
+            // Wait slightly to allow HEAD checks to finish,
+            // then attach download toasts only to existing files
+            setTimeout(enableDownloadToasts, 600);
+          });
+
+
+      // ---------- TOAST HELPER ----------
+      function showToast(message, type = "normal") {
+        const toast = document.getElementById("toast");
+        if (!toast) return;
+
+        toast.textContent = message;
+
+        // Reset and apply type
+        toast.classList.remove("error");
+        if (type === "error") {
+          toast.classList.add("error");
+        }
+
+        toast.classList.add("show");
+
+        // Hide after 3 seconds
+        setTimeout(() => {
+          toast.classList.remove("show");
+        }, 3000);
+      }
+
 
   </script>
 </body>
