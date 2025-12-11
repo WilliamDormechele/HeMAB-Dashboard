@@ -1411,12 +1411,13 @@
           e.preventDefault();
           const msg = fwCode
             ? `No QA report / query file is available yet for ${fwCode}.`
-            : "No QA report / query file is available yet.`;
-          showToast(msg, "error");   // <-- make it red
+            : "No QA report / query file is available yet.";
+          showToast(msg, "error");   // make it red
         },
         { once: true }
       );
     }
+
 
 
 
