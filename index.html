@@ -440,44 +440,6 @@
       z-index: 50;
     }
 
-/* Toast message for info / errors */
-.toast {
-  position: fixed;
-  bottom: 70px;               /* higher so it floats above footer */
-  left: 50%;
-  transform: translateX(-50%);
-  min-width: 260px;
-  max-width: 90%;
-  padding: 10px 14px;
-  border-radius: 999px;
-  background: rgba(15, 23, 42, 0.94); /* dark navy */
-  color: #f9fafb;
-  font-size: 0.85rem;
-  text-align: center;
-  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.5);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.25s ease;
-  z-index: 200;               /* above everything else */
-}
-
-/* Error-type toast (red) */
-.toast.error {
-  background: #b91c1c;        /* strong red */
-  color: #fff1f2;             /* soft pink text */
-  box-shadow: 0 6px 16px rgba(185, 28, 28, 0.5);
-}
-
-.toast.show {
-  opacity: 1;
-}
-
-.toast.success {
-  background: #047857;     /* emerald green */
-  color: #ecfdf5;          /* light mint */
-  box-shadow: 0 10px 24px rgba(4, 120, 87, 0.35);
-}
-
 
     .floating-back-top:hover {
       background: #020617;
@@ -587,31 +549,102 @@
   background: rgba(15, 23, 42, 0.06);
 }
 
-/* Toast message for info / errors */
-.toast {
+
+/* Toasts – stacked notifications (top-right) */
+.toast-container {
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);   /* centre horizontally + vertically */
-  min-width: 260px;
-  max-width: 90%;
-  padding: 14px 18px;
-  border-radius: 12px;
-  background: rgba(15, 23, 42, 0.94);
-  color: #f9fafb;
-  font-size: 0.95rem;
-  text-align: center;
-  box-shadow: 0 10px 24px rgba(0,0,0,0.35);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.25s ease;
+  top: 16px;
+  right: 16px;
   z-index: 200;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none; /* clicks pass through unless on a toast */
 }
 
+/* Base toast */
+.toast {
+  min-width: 260px;
+  max-width: 360px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: rgba(15, 23, 42, 0.96); /* dark navy */
+  color: #f9fafb;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.55);
+  opacity: 0;
+  transform: translateY(-10px);
+  animation: toast-in 0.25s ease-out forwards;
+  pointer-events: auto; /* clickable */
+  cursor: pointer;
+}
 
-.toast.show {
+/* Icon + message + close */
+.toast-icon {
+  font-size: 1rem;
+  line-height: 1;
+  margin-top: 2px;
+}
+
+.toast-message {
+  flex: 1;
+}
+
+.toast-close {
+  margin-left: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.toast-close:hover {
   opacity: 1;
 }
+
+/* Variants */
+.toast.success {
+  background: #047857;           /* emerald green */
+  color: #ecfdf5;
+  box-shadow: 0 10px 24px rgba(4, 120, 87, 0.35);
+}
+
+.toast.error {
+  background: #b91c1c;           /* strong red */
+  color: #fff1f2;
+  box-shadow: 0 10px 24px rgba(185, 28, 28, 0.5);
+}
+
+.toast.info {
+  background: #0f172a;           /* dark navy */
+  color: #e5e7eb;
+}
+
+/* Animations */
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes toast-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
 
     /* --- QA REPORTS: CATEGORY PANELS --- */
     .reports-category {
@@ -1168,7 +1201,7 @@
     </div>
   </footer>
 
-  <div id="toast" class="toast"></div>
+<div id="toastContainer" class="toast-container"></div>
 
   <!-- Firebase libraries -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
@@ -1489,32 +1522,73 @@
           });
 
 
-        // ---------- TOAST HELPER ----------
-        let toastTimeout;
+        // ---------- TOAST HELPERS (stacked, clickable, with icons) ----------
+        function showToast(message, type = "info") {
+          const container = document.getElementById("toastContainer");
+          if (!container) return;
 
-        function showToast(message, type = "normal") {
-          const toast = document.getElementById("toast");
+          // Create toast element
+          const toast = document.createElement("div");
+          toast.className = `toast ${type}`;
 
-          toast.textContent = message;
+          // Choose icon by type
+          let iconChar = "ℹ";
+          if (type === "success") iconChar = "✓";
+          else if (type === "error") iconChar = "⚠";
 
-          // Remove old styles
-          toast.classList.remove("error", "success");
+          const icon = document.createElement("span");
+          icon.className = "toast-icon";
+          icon.textContent = iconChar;
 
-          // Apply new style
-          if (type === "error") {
-            toast.classList.add("error");
-          } else if (type === "success") {
-            toast.classList.add("success");
+          const msg = document.createElement("span");
+          msg.className = "toast-message";
+          msg.textContent = message;
+
+          const close = document.createElement("span");
+          close.className = "toast-close";
+          close.innerHTML = "&times;";
+
+          // Close when clicking the X (don’t propagate)
+          close.addEventListener("click", (e) => {
+            e.stopPropagation();
+            dismissToast(toast);
+          });
+
+          // Close when clicking anywhere on the toast
+          toast.addEventListener("click", () => dismissToast(toast));
+
+          toast.appendChild(icon);
+          toast.appendChild(msg);
+          toast.appendChild(close);
+
+          container.appendChild(toast);
+
+          // Auto-dismiss after 3.5s
+          const timeoutId = setTimeout(() => dismissToast(toast), 3500);
+          toast.dataset.timeoutId = timeoutId;
+        }
+
+        function dismissToast(toast) {
+          if (!toast) return;
+
+          const timeoutId = toast.dataset.timeoutId;
+          if (timeoutId) {
+            clearTimeout(timeoutId);
           }
 
-          toast.classList.add("show");
-
-          // Reset and restart timer
-          if (toastTimeout) clearTimeout(toastTimeout);
-          toastTimeout = setTimeout(() => {
-            toast.classList.remove("show");
-          }, 3000);
+          // Play fade-out animation then remove
+          toast.style.animation = "toast-out 0.2s ease-in forwards";
+          toast.addEventListener(
+            "animationend",
+            () => {
+              if (toast.parentNode) {
+                toast.parentNode.removeChild(toast);
+              }
+            },
+            { once: true }
+          );
         }
+
 
   </script>
 </body>
