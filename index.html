@@ -507,6 +507,48 @@
       color: #4b5563;
     }
 
+    /* When a report file does NOT exist */
+.report-link.no-file {
+  background: #f9fafb;
+  border-style: dashed;
+  border-color: #e5e7eb;
+  color: #9ca3af;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.report-link.no-file .fw-code {
+  color: #9ca3af;
+}
+
+.report-link.no-file .fw-label::after {
+  content: " – not available";
+  font-style: italic;
+  color: #9ca3af;
+}
+
+/* Error / query links that DO have a file */
+.report-link.error-link.has-file {
+  background: #fee2e2;
+  border-color: #b91c1c;
+}
+
+.report-link.error-link.has-file .fw-code {
+  color: #b91c1c;
+}
+
+/* Optional small “Download” badge */
+.report-link .download-badge {
+  margin-top: 3px;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.06);
+}
+
+
     /* --- QA REPORTS: CATEGORY PANELS --- */
     .reports-category {
       border-radius: 14px;
