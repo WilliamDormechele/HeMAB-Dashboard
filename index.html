@@ -1219,19 +1219,27 @@
 
     // ---------- TAB SWITCHING ----------
     function updateFloatingButtons() {
+      // Only show helpers if the dashboard container is actually visible
+      const dashboardVisible =
+        getComputedStyle(dashboardContainer).display !== "none";
+
       const dashboardActive = document
         .getElementById("tab-dashboard")
         .classList.contains("active");
+
       const scrollY = window.scrollY || document.documentElement.scrollTop;
 
-      if (dashboardActive) {
+      if (dashboardVisible && dashboardActive) {
+        // User is logged in AND on Dashboard tab
         scrollHint.style.display = scrollY < 200 ? "flex" : "none";
         backToTopFloating.style.display = scrollY > 260 ? "block" : "none";
       } else {
+        // Not logged in or not on Dashboard tab → hide helpers
         scrollHint.style.display = "none";
         backToTopFloating.style.display = "none";
       }
     }
+
 
     tabButtons.forEach(btn => {
       btn.addEventListener("click", () => {
@@ -1503,7 +1511,7 @@
         }
 
   // Temporary test
-  window.addEventListener("load", () => showToast("Toast test OK", "error"));
+  // window.addEventListener("load", () => showToast("Toast test OK", "error"));
 
 
   </script>
