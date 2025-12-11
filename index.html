@@ -472,6 +472,11 @@
   opacity: 1;
 }
 
+.toast.success {
+  background: #047857;     /* emerald green */
+  color: #ecfdf5;          /* light mint */
+  box-shadow: 0 10px 24px rgba(4, 120, 87, 0.35);
+}
 
 
     .floating-back-top:hover {
@@ -1420,7 +1425,7 @@
           ? `No QA report / query file is available yet for ${fwCode}.`
           : "No QA report / query file is available yet.";
 
-        showToast(msg, "error");   // will show EVERY time now
+        showToast(msg, "success");
       });
     }
 
@@ -1485,30 +1490,31 @@
 
 
         // ---------- TOAST HELPER ----------
-      let toastTimeout;
+        let toastTimeout;
 
-      function showToast(message, type = "normal") {
-        const toast = document.getElementById("toast");
+        function showToast(message, type = "normal") {
+          const toast = document.getElementById("toast");
 
-        toast.textContent = message;
-        toast.classList.remove("error");
+          toast.textContent = message;
 
-        if (type === "error") toast.classList.add("error");
+          // Remove old styles
+          toast.classList.remove("error", "success");
 
-        toast.classList.add("show");
+          // Apply new style
+          if (type === "error") {
+            toast.classList.add("error");
+          } else if (type === "success") {
+            toast.classList.add("success");
+          }
 
-        // Reset existing timer if needed
-        if (toastTimeout) clearTimeout(toastTimeout);
+          toast.classList.add("show");
 
-        toastTimeout = setTimeout(() => {
-          toast.classList.remove("show");
-        }, 3000);
-      }
-
-
-  // Temporary test
-  // window.addEventListener("load", () => showToast("Toast test OK", "error"));
-
+          // Reset and restart timer
+          if (toastTimeout) clearTimeout(toastTimeout);
+          toastTimeout = setTimeout(() => {
+            toast.classList.remove("show");
+          }, 3000);
+        }
 
   </script>
 </body>
