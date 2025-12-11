@@ -16,6 +16,10 @@
       height: 100%;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
@@ -330,18 +334,114 @@
       color: #555;
     }
 
-    .iframe-wrapper {
+    /* Instruction banner on dashboard */
+    .dashboard-instructions {
+      margin-top: 8px;
+      margin-bottom: 10px;
+      padding: 10px 12px;
+      background: #e8f1ff;
+      border-left: 4px solid #2563eb;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+
+    .dashboard-instructions .jump-link {
+      display: inline-block;
+      margin-left: 6px;
+      font-weight: 600;
+      color: #1d4ed8;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    /* Power BI container */
+    .powerbi-container {
+      margin-top: 10px;
       width: 100%;
       height: 89vh;
       overflow: hidden;
-      margin: 0;
-      padding: 0;
     }
 
-    .iframe-wrapper iframe {
+    .powerbi-container iframe {
       width: 100%;
       height: 100%;
       border: none;
+    }
+
+    .back-to-top {
+      text-align: center;
+      margin: 20px 0 10px;
+    }
+
+    .back-to-top a {
+      background: #1f2937;
+      color: #ffffff;
+      padding: 8px 16px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+
+    .back-to-top a:hover {
+      background: #111827;
+    }
+
+    /* Floating scroll hint (bottom centre) */
+    .floating-scroll-hint {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: none;
+      align-items: center;
+      gap: 8px;
+      background: rgba(15, 23, 42, 0.9);
+      color: #f9fafb;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      z-index: 50;
+      cursor: pointer;
+      box-shadow: 0 6px 16px rgba(15, 23, 42, 0.4);
+    }
+
+    .floating-scroll-hint .arrow {
+      font-size: 1.1rem;
+      animation: bounce 1s infinite;
+    }
+
+    @keyframes bounce {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(3px);
+      }
+    }
+
+    /* Floating Back to Top button (bottom right) */
+    .floating-back-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: none;
+      background: #111827;
+      color: #f9fafb;
+      font-size: 0.85rem;
+      cursor: pointer;
+      box-shadow: 0 6px 16px rgba(15, 23, 42, 0.45);
+      display: none;
+      z-index: 50;
+    }
+
+    .floating-back-top:hover {
+      background: #020617;
     }
 
     /* --- QA REPORTS TAB --- */
@@ -408,75 +508,68 @@
     }
 
     /* --- QA REPORTS: CATEGORY PANELS --- */
+    .reports-category {
+      border-radius: 14px;
+      padding: 10px 12px 14px;
+      margin-bottom: 18px;
+      border: 1px solid #d0d7e6;
+      background: #f9fafb;
+    }
 
-.reports-category {
-  border-radius: 14px;
-  padding: 10px 12px 14px;
-  margin-bottom: 18px;
-  border: 1px solid #d0d7e6;
-  background: #f9fafb;
-}
+    .reports-category summary {
+      list-style: none;
+      cursor: pointer;
+    }
 
-/* remove default triangle bullet spacing */
-.reports-category summary {
-  list-style: none;
-  cursor: pointer;
-}
+    .reports-category summary::-webkit-details-marker {
+      display: none;
+    }
 
-/* remove default triangle marker in some browsers */
-.reports-category summary::-webkit-details-marker {
-  display: none;
-}
+    .reports-category-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
 
-/* summary header layout */
-.reports-category-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 8px;
-}
+    .reports-category-title {
+      font-size: 0.98rem;
+      font-weight: 600;
+    }
 
-.reports-category-title {
-  font-size: 0.98rem;
-  font-weight: 600;
-}
+    .reports-category-tag {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+    }
 
-.reports-category-tag {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  padding: 4px 8px;
-  border-radius: 999px;
-  background: rgba(255,255,255,0.7);
-  border: 1px solid rgba(255,255,255,0.9);
-}
+    .reports-category-chevron {
+      font-size: 0.85rem;
+      opacity: 0.7;
+    }
 
-/* little chevron */
-.reports-category-chevron {
-  font-size: 0.85rem;
-  opacity: 0.7;
-}
+    .reports-category-body {
+      margin-top: 10px;
+    }
 
-/* spacing below header inside panel */
-.reports-category-body {
-  margin-top: 10px;
-}
+    .reports-category.hh {
+      border-left: 5px solid #2563eb;
+      background: #eff6ff;
+    }
 
-/* colour themes per dataset */
-.reports-category.hh {
-  border-left: 5px solid #2563eb;
-  background: #eff6ff;
-}
+    .reports-category.women {
+      border-left: 5px solid #db2777;
+      background: #fdf2f8;
+    }
 
-.reports-category.women {
-  border-left: 5px solid #db2777;
-  background: #fdf2f8;
-}
-
-.reports-category.hw {
-  border-left: 5px solid #059669;
-  background: #ecfdf5;
-}
+    .reports-category.hw {
+      border-left: 5px solid #059669;
+      background: #ecfdf5;
+    }
 
     footer {
       background: #1f3044;
@@ -521,13 +614,15 @@
 
   <header>
     <div>
-      <h1>HeMAB Daily Work Summary – QA Dashboard</h1>
+      <h1>HeMAB Daily Work Summary and QA Dashboard</h1>
     </div>
     <div class="user-info">
       <span id="userEmailDisplay">Not signed in</span>
       <button id="logoutBtn" style="display:none;">Log out</button>
     </div>
   </header>
+
+  <a id="top"></a>
 
   <!-- LOGIN / SIGN-UP AREA -->
   <main id="auth-container">
@@ -589,290 +684,303 @@
       <div id="tab-dashboard" class="tab-content active">
         <div class="dashboard-header">
           <h2>Dashboard</h2>
+
+          <!-- Instruction banner -->
+          <div class="dashboard-instructions">
+            📌 <strong>Tip:</strong> Scroll down to view the Power BI page navigator (“1 of 10”).
+            <a href="#pb-navigator" class="jump-link">Jump to navigator ↓</a>
+          </div>
+
           <p>
             Use the filters and tabs in the embedded Power BI report to explore
             fieldworker performance, household interviews, and error patterns.
           </p>
         </div>
 
-        <div class="iframe-wrapper">
-          <iframe title="GH-HeMAB" style="width: 100%; height: 100%;"
+        <a id="pb-navigator"></a>
+        <div class="powerbi-container">
+          <iframe title="GH-HeMAB"
             src="https://app.powerbi.com/view?r=eyJrIjoiNzAyOGRjY2QtYjJkMS00MjNkLTg0OWEtYzZkYTk4ZmUxZThmIiwidCI6IjE3NDMwMTNlLTUyNDMtNDQ0ZS1hNGRjLWExYzNkNzZhMzRmNCJ9"
             frameborder="0" allowFullScreen="true">
           </iframe>
         </div>
+
+        <div class="back-to-top">
+          <a href="#top">↑ Back to top</a>
+        </div>
       </div>
 
       <!-- TAB: QA REPORTS -->
-<div id="tab-reports" class="tab-content">
-  <div class="reports-card">
+      <div id="tab-reports" class="tab-content">
+        <div class="reports-card">
 
-    <h2>QA Reports</h2>
-    <p>
-      Select a fieldworker or summary report to download the latest QA PDFs.
-    </p>
+          <h2>QA Reports</h2>
+          <p>
+            Select a fieldworker or summary report to download the latest QA PDFs. NB. Click on the header to excpand a section and click again to close the expansion.
+          </p>
 
-    <!-- ============================
-         HH MEMBERS
-    ============================= -->
-    <details class="reports-category hh" open>
-      <summary>
-        <div class="reports-category-header">
-          <div class="reports-category-title">
-            HH Members – QA Reports
-          </div>
-          <div class="reports-category-tag">Household Members</div>
-          <div class="reports-category-chevron">▾</div>
-        </div>
-      </summary>
+          <!-- HH MEMBERS -->
+          <details class="reports-category hh" open>
+            <summary>
+              <div class="reports-category-header">
+                <div class="reports-category-title">
+                  HH Members – QA Reports
+                </div>
+                <div class="reports-category-tag">Household Members</div>
+                <div class="reports-category-chevron">▾</div>
+              </div>
+            </summary>
 
-      <div class="reports-category-body">
-        <div class="reports-section-title">By Fieldworker</div>
-        <div class="reports-grid">
-          <!-- Update these filenames to match your actual PDFs -->
-          <a class="report-link" href="reports/HH_members/hhmembers_QA_report_AW.pdf" download>
-            <span class="fw-code">AW</span>
-            <span class="fw-label">HH Members report (AW)</span>
-          </a>
-          <a class="report-link" href="reports/HH_members/hhmembers_QA_report_AR.pdf" download>
-            <span class="fw-code">AR</span>
-            <span class="fw-label">HH Members report (AR)</span>
-          </a>
-          <a class="report-link" href="reports/HH_members/hhmembers_QA_report_BB.pdf" download>
-            <span class="fw-code">BB</span>
-            <span class="fw-label">HH Members report (BB)</span>
-          </a>
-          <a class="report-link" href="reports/HH_members/hhmembers_QA_report_CJ.pdf" download>
-            <span class="fw-code">CJ</span>
-            <span class="fw-label">HH Members report (CJ)</span>
-          </a>
-          <a class="report-link" href="reports/HH_members/hhmembers_QA_report_FR.pdf" download>
-            <span class="fw-code">FR</span>
-            <span class="fw-label">HH Members report (FR)</span>
-          </a>
-          <a class="report-link" href="reports/HH_members/hhmembers_QA_report_KP.pdf" download>
-            <span class="fw-code">KP</span>
-            <span class="fw-label">HH Members report (KP)</span>
-          </a>
-          <a class="report-link" href="reports/HH_members/hhmembers_QA_report_MA.pdf" download>
-            <span class="fw-code">MA</span>
-            <span class="fw-label">HH Members report (MA)</span>
-          </a>
-          <a class="report-link" href="reports/HH_members/hhmembers_QA_report_RA.pdf" download>
-            <span class="fw-code">RA</span>
-            <span class="fw-label">HH Members report (RA)</span>
-          </a>
-          <a class="report-link" href="reports/HH_members/hhmembers_QA_report_SC.pdf" download>
-            <span class="fw-code">SC</span>
-            <span class="fw-label">HH Members report (SC)</span>
-          </a>
-          <a class="report-link" href="reports/HH_members/hhmembers_QA_report_AF.pdf" download>
-            <span class="fw-code">AF</span>
-            <span class="fw-label">HH Members report (AF)</span>
-          </a>
-          <a class="report-link" href="reports/HH_members/hhmembers_QA_report_AJ.pdf" download>
-            <span class="fw-code">AJ</span>
-            <span class="fw-label">HH Members report (AJ)</span>
-          </a>
-          <a class="report-link" href="reports/HH_members/hhmembers_QA_report_AL.pdf" download>
-            <span class="fw-code">AL</span>
-            <span class="fw-label">HH Members report (AL)</span>
-          </a>
-          <a class="report-link" href="reports/HH_members/hhmembers_QA_report_AM.pdf" download>
-            <span class="fw-code">AM</span>
-            <span class="fw-label">HH Members report (AM)</span>
-          </a>
-        </div>
+            <div class="reports-category-body">
+              <div class="reports-section-title">By Fieldworker</div>
+              <div class="reports-grid">
+                <a class="report-link" href="reports/HH_members/hhmembers_QA_report_AW.pdf" download>
+                  <span class="fw-code">AW</span>
+                  <span class="fw-label">HH Members report (AW)</span>
+                </a>
+                <a class="report-link" href="reports/HH_members/hhmembers_QA_report_AR.pdf" download>
+                  <span class="fw-code">AR</span>
+                  <span class="fw-label">HH Members report (AR)</span>
+                </a>
+                <a class="report-link" href="reports/HH_members/hhmembers_QA_report_BB.pdf" download>
+                  <span class="fw-code">BB</span>
+                  <span class="fw-label">HH Members report (BB)</span>
+                </a>
+                <a class="report-link" href="reports/HH_members/hhmembers_QA_report_CJ.pdf" download>
+                  <span class="fw-code">CJ</span>
+                  <span class="fw-label">HH Members report (CJ)</span>
+                </a>
+                <a class="report-link" href="reports/HH_members/hhmembers_QA_report_FR.pdf" download>
+                  <span class="fw-code">FR</span>
+                  <span class="fw-label">HH Members report (FR)</span>
+                </a>
+                <a class="report-link" href="reports/HH_members/hhmembers_QA_report_KP.pdf" download>
+                  <span class="fw-code">KP</span>
+                  <span class="fw-label">HH Members report (KP)</span>
+                </a>
+                <a class="report-link" href="reports/HH_members/hhmembers_QA_report_MA.pdf" download>
+                  <span class="fw-code">MA</span>
+                  <span class="fw-label">HH Members report (MA)</span>
+                </a>
+                <a class="report-link" href="reports/HH_members/hhmembers_QA_report_RA.pdf" download>
+                  <span class="fw-code">RA</span>
+                  <span class="fw-label">HH Members report (RA)</span>
+                </a>
+                <a class="report-link" href="reports/HH_members/hhmembers_QA_report_SC.pdf" download>
+                  <span class="fw-code">SC</span>
+                  <span class="fw-label">HH Members report (SC)</span>
+                </a>
+                <a class="report-link" href="reports/HH_members/hhmembers_QA_report_AF.pdf" download>
+                  <span class="fw-code">AF</span>
+                  <span class="fw-label">HH Members report (AF)</span>
+                </a>
+                <a class="report-link" href="reports/HH_members/hhmembers_QA_report_AJ.pdf" download>
+                  <span class="fw-code">AJ</span>
+                  <span class="fw-label">HH Members report (AJ)</span>
+                </a>
+                <a class="report-link" href="reports/HH_members/hhmembers_QA_report_AL.pdf" download>
+                  <span class="fw-code">AL</span>
+                  <span class="fw-label">HH Members report (AL)</span>
+                </a>
+                <a class="report-link" href="reports/HH_members/hhmembers_QA_report_AM.pdf" download>
+                  <span class="fw-code">AM</span>
+                  <span class="fw-label">HH Members report (AM)</span>
+                </a>
+              </div>
 
-        <div class="reports-section-title">Summary & Error Logs</div>
-        <div class="reports-grid">
-          <a class="report-link" href="reports/HH_members/hhmembers_QA_report.pdf" download>
-            <span class="fw-code">All FWs</span>
-            <span class="fw-label">Overall HH Members QA summary</span>
-          </a>
-          <a class="report-link" href="reports/HH_members/hhmembers_QA_errors.dta" download>
-            <span class="fw-code">Errors</span>
-            <span class="fw-label">Detailed HH Members QA errors log (STATA File)</span>
-          </a>
-        </div>
-      </div>
-    </details>
+              <div class="reports-section-title">Summary & Error Logs</div>
+              <div class="reports-grid">
+                <a class="report-link" href="reports/HH_members/hhmembers_QA_report.pdf" download>
+                  <span class="fw-code">All FWs</span>
+                  <span class="fw-label">Overall HH Members QA summary</span>
+                </a>
+                <a class="report-link" href="reports/HH_members/hhmembers_QA_errors.dta" download>
+                  <span class="fw-code">Errors</span>
+                  <span class="fw-label">Detailed HH Members QA errors log (Stata)</span>
+                </a>
+              </div>
+            </div>
+          </details>
 
-    <!-- ============================
-         WOMEN TOOL
-    ============================= -->
-    <details class="reports-category women">
-      <summary>
-        <div class="reports-category-header">
-          <div class="reports-category-title">
-            Women Tool – QA Reports
-          </div>
-          <div class="reports-category-tag">Women</div>
-          <div class="reports-category-chevron">▾</div>
-        </div>
-      </summary>
+          <!-- WOMEN TOOL -->
+          <details class="reports-category women">
+            <summary>
+              <div class="reports-category-header">
+                <div class="reports-category-title">
+                  Women Tool – QA Reports
+                </div>
+                <div class="reports-category-tag">Women</div>
+                <div class="reports-category-chevron">▾</div>
+              </div>
+            </summary>
 
-      <div class="reports-category-body">
-        <div class="reports-section-title">By Fieldworker</div>
-        <div class="reports-grid">
-          <a class="report-link" href="reports/Women/women_QA_report_AW.pdf" download>
-            <span class="fw-code">AW</span>
-            <span class="fw-label">Women report (AW)</span>
-          </a>
-          <a class="report-link" href="reports/Women/women_QA_report_AR.pdf" download>
-            <span class="fw-code">AR</span>
-            <span class="fw-label">Women report (AR)</span>
-          </a>
-          <a class="report-link" href="reports/Women/women_QA_report_BB.pdf" download>
-            <span class="fw-code">BB</span>
-            <span class="fw-label">Women report (BB)</span>
-          </a>
-          <a class="report-link" href="reports/Women/women_QA_report_CJ.pdf" download>
-            <span class="fw-code">CJ</span>
-            <span class="fw-label">Women report (CJ)</span>
-          </a>
-          <a class="report-link" href="reports/Women/women_QA_report_FR.pdf" download>
-            <span class="fw-code">FR</span>
-            <span class="fw-label">Women report (FR)</span>
-          </a>
-          <a class="report-link" href="reports/Women/women_QA_report_KP.pdf" download>
-            <span class="fw-code">KP</span>
-            <span class="fw-label">Women report (KP)</span>
-          </a>
-          <a class="report-link" href="reports/Women/women_QA_report_MA.pdf" download>
-            <span class="fw-code">MA</span>
-            <span class="fw-label">Women report (MA)</span>
-          </a>
-          <a class="report-link" href="reports/Women/women_QA_report_RA.pdf" download>
-            <span class="fw-code">RA</span>
-            <span class="fw-label">Women report (RA)</span>
-          </a>
-          <a class="report-link" href="reports/Women/women_QA_report_SC.pdf" download>
-            <span class="fw-code">SC</span>
-            <span class="fw-label">Women report (SC)</span>
-          </a>
-          <a class="report-link" href="reports/Women/women_QA_report_AF.pdf" download>
-            <span class="fw-code">AF</span>
-            <span class="fw-label">Women report (AF)</span>
-          </a>
-          <a class="report-link" href="reports/Women/women_QA_report_AJ.pdf" download>
-            <span class="fw-code">AJ</span>
-            <span class="fw-label">Women report (AJ)</span>
-          </a>
-          <a class="report-link" href="reports/Women/women_QA_report_AL.pdf" download>
-            <span class="fw-code">AL</span>
-            <span class="fw-label">Women report (AL)</span>
-          </a>
-          <a class="report-link" href="reports/Women/women_QA_report_AM.pdf" download>
-            <span class="fw-code">AM</span>
-            <span class="fw-label">Women report (AM)</span>
-          </a>
-        </div>
+            <div class="reports-category-body">
+              <div class="reports-section-title">By Fieldworker</div>
+              <div class="reports-grid">
+                <a class="report-link" href="reports/Women/women_QA_report_AW.pdf" download>
+                  <span class="fw-code">AW</span>
+                  <span class="fw-label">Women report (AW)</span>
+                </a>
+                <a class="report-link" href="reports/Women/women_QA_report_AR.pdf" download>
+                  <span class="fw-code">AR</span>
+                  <span class="fw-label">Women report (AR)</span>
+                </a>
+                <a class="report-link" href="reports/Women/women_QA_report_BB.pdf" download>
+                  <span class="fw-code">BB</span>
+                  <span class="fw-label">Women report (BB)</span>
+                </a>
+                <a class="report-link" href="reports/Women/women_QA_report_CJ.pdf" download>
+                  <span class="fw-code">CJ</span>
+                  <span class="fw-label">Women report (CJ)</span>
+                </a>
+                <a class="report-link" href="reports/Women/women_QA_report_FR.pdf" download>
+                  <span class="fw-code">FR</span>
+                  <span class="fw-label">Women report (FR)</span>
+                </a>
+                <a class="report-link" href="reports/Women/women_QA_report_KP.pdf" download>
+                  <span class="fw-code">KP</span>
+                  <span class="fw-label">Women report (KP)</span>
+                </a>
+                <a class="report-link" href="reports/Women/women_QA_report_MA.pdf" download>
+                  <span class="fw-code">MA</span>
+                  <span class="fw-label">Women report (MA)</span>
+                </a>
+                <a class="report-link" href="reports/Women/women_QA_report_RA.pdf" download>
+                  <span class="fw-code">RA</span>
+                  <span class="fw-label">Women report (RA)</span>
+                </a>
+                <a class="report-link" href="reports/Women/women_QA_report_SC.pdf" download>
+                  <span class="fw-code">SC</span>
+                  <span class="fw-label">Women report (SC)</span>
+                </a>
+                <a class="report-link" href="reports/Women/women_QA_report_AF.pdf" download>
+                  <span class="fw-code">AF</span>
+                  <span class="fw-label">Women report (AF)</span>
+                </a>
+                <a class="report-link" href="reports/Women/women_QA_report_AJ.pdf" download>
+                  <span class="fw-code">AJ</span>
+                  <span class="fw-label">Women report (AJ)</span>
+                </a>
+                <a class="report-link" href="reports/Women/women_QA_report_AL.pdf" download>
+                  <span class="fw-code">AL</span>
+                  <span class="fw-label">Women report (AL)</span>
+                </a>
+                <a class="report-link" href="reports/Women/women_QA_report_AM.pdf" download>
+                  <span class="fw-code">AM</span>
+                  <span class="fw-label">Women report (AM)</span>
+                </a>
+              </div>
 
-        <div class="reports-section-title">Summary & Error Logs</div>
-        <div class="reports-grid">
-          <a class="report-link" href="reports/Women/women_QA_report.pdf" download>
-            <span class="fw-code">All FWs</span>
-            <span class="fw-label">Overall Women Tool QA summary</span>
-          </a>
-          <a class="report-link" href="reports/Women/women_QA_errors.dta" download>
-            <span class="fw-code">Errors</span>
-            <span class="fw-label">Detailed Women Tool QA errors log</span>
-          </a>
-        </div>
-      </div>
-    </details>
+              <div class="reports-section-title">Summary & Error Logs</div>
+              <div class="reports-grid">
+                <a class="report-link" href="reports/Women/women_QA_report.pdf" download>
+                  <span class="fw-code">All FWs</span>
+                  <span class="fw-label">Overall Women Tool QA summary</span>
+                </a>
+                <a class="report-link" href="reports/Women/women_QA_errors.dta" download>
+                  <span class="fw-code">Errors</span>
+                  <span class="fw-label">Detailed Women Tool QA errors log</span>
+                </a>
+              </div>
+            </div>
+          </details>
 
-    <!-- ============================
-         HEALTH WORKERS
-    ============================= -->
-    <details class="reports-category hw">
-      <summary>
-        <div class="reports-category-header">
-          <div class="reports-category-title">
-            Health Workers – QA Reports
-          </div>
-          <div class="reports-category-tag">Health Workers</div>
-          <div class="reports-category-chevron">▾</div>
-        </div>
-      </summary>
+          <!-- HEALTH WORKERS -->
+          <details class="reports-category hw">
+            <summary>
+              <div class="reports-category-header">
+                <div class="reports-category-title">
+                  Health Workers – QA Reports
+                </div>
+                <div class="reports-category-tag">Health Workers</div>
+                <div class="reports-category-chevron">▾</div>
+              </div>
+            </summary>
 
-      <div class="reports-category-body"></div>
-        <div class="reports-section-title">By Fieldworker</div>
-        <div class="reports-grid">
-          <a class="report-link" href="reports/HealthWorkers/hw_QA_report_AW.pdf" download>
-            <span class="fw-code">AW</span>
-            <span class="fw-label">Health Workers report (AW)</span>
-          </a>
-          <a class="report-link" href="reports/HealthWorkers/hw_QA_report_AR.pdf" download>
-            <span class="fw-code">AR</span>
-            <span class="fw-label">Health Workers report (AR)</span>
-          </a>
-          <a class="report-link" href="reports/HealthWorkers/hw_QA_report_BB.pdf" download>
-            <span class="fw-code">BB</span>
-            <span class="fw-label">Health Workers report (BB)</span>
-          </a>
-          <a class="report-link" href="reports/HealthWorkers/hw_QA_report_CJ.pdf" download>
-            <span class="fw-code">CJ</span>
-            <span class="fw-label">Health Workers report (CJ)</span>
-          </a>
-          <a class="report-link" href="reports/HealthWorkers/hw_QA_report_FR.pdf" download>
-            <span class="fw-code">FR</span>
-            <span class="fw-label">Health Workers report (FR)</span>
-          </a>
-          <a class="report-link" href="reports/HealthWorkers/hw_QA_report_KP.pdf" download>
-            <span class="fw-code">KP</span>
-            <span class="fw-label">Health Workers report (KP)</span>
-          </a>
-          <a class="report-link" href="reports/HealthWorkers/hw_QA_report_MA.pdf" download>
-            <span class="fw-code">MA</span>
-            <span class="fw-label">Health Workers report (MA)</span>
-          </a>
-          <a class="report-link" href="reports/HealthWorkers/hw_QA_report_RA.pdf" download>
-            <span class="fw-code">RA</span>
-            <span class="fw-label">Health Workers report (RA)</span>
-          </a>
-          <a class="report-link" href="reports/HealthWorkers/hw_QA_report_SC.pdf" download>
-            <span class="fw-code">SC</span>
-            <span class="fw-label">Health Workers report (SC)</span>
-          </a>
-          <a class="report-link" href="reports/HealthWorkers/hw_QA_report_AF.pdf" download>
-            <span class="fw-code">AF</span>
-            <span class="fw-label">Health Workers report (AF)</span>
-          </a>
-          <a class="report-link" href="reports/HealthWorkers/hw_QA_report_AJ.pdf" download>
-            <span class="fw-code">AJ</span>
-            <span class="fw-label">Health Workers report (AJ)</span>
-          </a>
-          <a class="report-link" href="reports/HealthWorkers/hw_QA_report_AL.pdf" download>
-            <span class="fw-code">AL</span>
-            <span class="fw-label">Health Workers report (AL)</span>
-          </a>
-          <a class="report-link" href="reports/HealthWorkers/hw_QA_report_AM.pdf" download>
-            <span class="fw-code">AM</span>
-            <span class="fw-label">Health Workers report (AM)</span>
-          </a>
-        </div>
+            <div class="reports-category-body">
+              <div class="reports-section-title">By Fieldworker</div>
+              <div class="reports-grid">
+                <a class="report-link" href="reports/HealthWorkers/hw_QA_report_AW.pdf" download>
+                  <span class="fw-code">AW</span>
+                  <span class="fw-label">Health Workers report (AW)</span>
+                </a>
+                <a class="report-link" href="reports/HealthWorkers/hw_QA_report_AR.pdf" download>
+                  <span class="fw-code">AR</span>
+                  <span class="fw-label">Health Workers report (AR)</span>
+                </a>
+                <a class="report-link" href="reports/HealthWorkers/hw_QA_report_BB.pdf" download>
+                  <span class="fw-code">BB</span>
+                  <span class="fw-label">Health Workers report (BB)</span>
+                </a>
+                <a class="report-link" href="reports/HealthWorkers/hw_QA_report_CJ.pdf" download>
+                  <span class="fw-code">CJ</span>
+                  <span class="fw-label">Health Workers report (CJ)</span>
+                </a>
+                <a class="report-link" href="reports/HealthWorkers/hw_QA_report_FR.pdf" download>
+                  <span class="fw-code">FR</span>
+                  <span class="fw-label">Health Workers report (FR)</span>
+                </a>
+                <a class="report-link" href="reports/HealthWorkers/hw_QA_report_KP.pdf" download>
+                  <span class="fw-code">KP</span>
+                  <span class="fw-label">Health Workers report (KP)</span>
+                </a>
+                <a class="report-link" href="reports/HealthWorkers/hw_QA_report_MA.pdf" download>
+                  <span class="fw-code">MA</span>
+                  <span class="fw-label">Health Workers report (MA)</span>
+                </a>
+                <a class="report-link" href="reports/HealthWorkers/hw_QA_report_RA.pdf" download>
+                  <span class="fw-code">RA</span>
+                  <span class="fw-label">Health Workers report (RA)</span>
+                </a>
+                <a class="report-link" href="reports/HealthWorkers/hw_QA_report_SC.pdf" download>
+                  <span class="fw-code">SC</span>
+                  <span class="fw-label">Health Workers report (SC)</span>
+                </a>
+                <a class="report-link" href="reports/HealthWorkers/hw_QA_report_AF.pdf" download>
+                  <span class="fw-code">AF</span>
+                  <span class="fw-label">Health Workers report (AF)</span>
+                </a>
+                <a class="report-link" href="reports/HealthWorkers/hw_QA_report_AJ.pdf" download>
+                  <span class="fw-code">AJ</span>
+                  <span class="fw-label">Health Workers report (AJ)</span>
+                </a>
+                <a class="report-link" href="reports/HealthWorkers/hw_QA_report_AL.pdf" download>
+                  <span class="fw-code">AL</span>
+                  <span class="fw-label">Health Workers report (AL)</span>
+                </a>
+                <a class="report-link" href="reports/HealthWorkers/hw_QA_report_AM.pdf" download>
+                  <span class="fw-code">AM</span>
+                  <span class="fw-label">Health Workers report (AM)</span>
+                </a>
+              </div>
 
-        <div class="reports-section-title">Summary & Error Logs</div>
-        <div class="reports-grid">
-          <a class="report-link" href="reports/HealthWorkers/hw_QA_report.pdf" download>
-            <span class="fw-code">All FWs</span>
-            <span class="fw-label">Overall Health Workers QA summary</span>
-          </a>
-          <a class="report-link" href="reports/HealthWorkers/hw_QA_errors.dta" download>
-            <span class="fw-code">Errors</span>
-            <span class="fw-label">Detailed Health Workers QA errors log</span>
-          </a>
+              <div class="reports-section-title">Summary & Error Logs</div>
+              <div class="reports-grid">
+                <a class="report-link" href="reports/HealthWorkers/hw_QA_report.pdf" download>
+                  <span class="fw-code">All FWs</span>
+                  <span class="fw-label">Overall Health Workers QA summary</span>
+                </a>
+                <a class="report-link" href="reports/HealthWorkers/hw_QA_errors.dta" download>
+                  <span class="fw-code">Errors</span>
+                  <span class="fw-label">Detailed Health Workers QA errors log</span>
+                </a>
+              </div>
+            </div>
+          </details>
+
         </div>
       </div>
-    </details>
-
-  </div>
-</div>
 
     </div>
   </main>
+
+  <!-- Floating helpers -->
+  <div id="scrollHint" class="floating-scroll-hint">
+    <span class="arrow">↓</span>
+    <span class="text">Scroll down for navigator</span>
+  </div>
+
+  <button id="backToTopFloating" class="floating-back-top">↑ Top</button>
 
   <footer id="customFooter">
     <div class="footer-main">
@@ -926,6 +1034,9 @@
     const tabButtons = document.querySelectorAll(".tab-button");
     const tabContents = document.querySelectorAll(".tab-content");
 
+    const scrollHint = document.getElementById("scrollHint");
+    const backToTopFloating = document.getElementById("backToTopFloating");
+
     let isSignInMode = true;
     let pendingMessage = "";
     let pendingMessageColor = "#b00";
@@ -934,6 +1045,21 @@
     const passwordPattern = /^\d{6}$/;
 
     // ---------- TAB SWITCHING ----------
+    function updateFloatingButtons() {
+      const dashboardActive = document
+        .getElementById("tab-dashboard")
+        .classList.contains("active");
+      const scrollY = window.scrollY || document.documentElement.scrollTop;
+
+      if (dashboardActive) {
+        scrollHint.style.display = scrollY < 200 ? "flex" : "none";
+        backToTopFloating.style.display = scrollY > 260 ? "block" : "none";
+      } else {
+        scrollHint.style.display = "none";
+        backToTopFloating.style.display = "none";
+      }
+    }
+
     tabButtons.forEach(btn => {
       btn.addEventListener("click", () => {
         const target = btn.getAttribute("data-tab");
@@ -943,7 +1069,21 @@
 
         btn.classList.add("active");
         document.getElementById(target).classList.add("active");
+
+        updateFloatingButtons();
       });
+    });
+
+    window.addEventListener("scroll", updateFloatingButtons);
+    window.addEventListener("load", updateFloatingButtons);
+
+    // Floating helpers click actions
+    scrollHint.addEventListener("click", () => {
+      document.getElementById("pb-navigator").scrollIntoView({ behavior: "smooth" });
+    });
+
+    backToTopFloating.addEventListener("click", () => {
+      document.getElementById("top").scrollIntoView({ behavior: "smooth" });
     });
 
     // ---------- TOGGLE PASSWORD VISIBILITY ----------
@@ -958,13 +1098,15 @@
       isSignInMode = !isSignInMode;
       if (isSignInMode) {
         authTitle.textContent = "Sign in";
-        authSubtitle.textContent = "Enter your email and 6-digit PIN to access the HeMAB QA dashboard.";
+        authSubtitle.textContent =
+          "Enter your email and 6-digit PIN to access the HeMAB QA dashboard.";
         authButton.textContent = "Sign in";
         toggleText.textContent = "Don't have an account?";
         toggleLink.textContent = "Create one";
       } else {
         authTitle.textContent = "Create account";
-        authSubtitle.textContent = "Register with your email and 6-digit PIN to access the HeMAB QA dashboard.";
+        authSubtitle.textContent =
+          "Register with your email and 6-digit PIN to access the HeMAB QA dashboard.";
         authButton.textContent = "Create account";
         toggleText.textContent = "Already have an account?";
         toggleLink.textContent = "Sign in";
@@ -992,33 +1134,25 @@
 
       try {
         if (isSignInMode) {
-          // SIGN IN
           await auth.signInWithEmailAndPassword(email, password);
-          // onAuthStateChanged will handle verification check and UI
         } else {
-          // CREATE ACCOUNT
           const cred = await auth.createUserWithEmailAndPassword(email, password);
           const user = cred.user;
 
-          // Send verification email
           await user.sendEmailVerification();
-
-          // Sign out so they must verify before logging in
           await auth.signOut();
 
-          // Switch to sign-in mode
           isSignInMode = true;
           authTitle.textContent = "Sign in";
-          authSubtitle.textContent = "Enter your email and 6-digit PIN to access the HeMAB QA dashboard.";
+          authSubtitle.textContent =
+            "Enter your email and 6-digit PIN to access the HeMAB QA dashboard.";
           authButton.textContent = "Sign in";
           toggleText.textContent = "Don't have an account?";
           toggleLink.textContent = "Create one";
 
-          // Clear fields
           emailInput.value = "";
           passwordInput.value = "";
 
-          // Show success message
           authMessage.style.color = "green";
           authMessage.textContent =
             "Account created successfully. A verification email has been sent. Please verify your email (check spam/junk), then sign in.";
@@ -1036,14 +1170,16 @@
       authMessage.style.color = "#b00";
 
       if (!email) {
-        authMessage.textContent = "Enter your email above, then click 'Forgot password?' again.";
+        authMessage.textContent =
+          "Enter your email above, then click 'Forgot password?' again.";
         return;
       }
 
       try {
         await auth.sendPasswordResetEmail(email);
         authMessage.style.color = "green";
-        authMessage.textContent = "Password reset email sent. Please check your inbox (and spam/junk).";
+        authMessage.textContent =
+          "Password reset email sent. Please check your inbox (and spam/junk).";
       } catch (error) {
         authMessage.style.color = "#b00";
         authMessage.textContent = error.message;
@@ -1056,8 +1192,7 @@
     // ---------- AUTH STATE LISTENER ----------
     auth.onAuthStateChanged(async (user) => {
       if (user) {
-        // User logged in – check email verification
-        await user.reload(); // refresh user info in case they just verified
+        await user.reload();
         if (!user.emailVerified) {
           pendingMessageColor = "#b00";
           pendingMessage =
@@ -1066,7 +1201,6 @@
           return;
         }
 
-        // Verified – show dashboard
         pendingMessage = "";
         authMessage.textContent = "";
 
@@ -1075,8 +1209,8 @@
 
         authContainer.style.display = "none";
         dashboardContainer.style.display = "block";
+        updateFloatingButtons();
       } else {
-        // Logged out – show login form
         userEmailDisplay.textContent = "Not signed in";
         logoutBtn.style.display = "none";
 
@@ -1087,6 +1221,7 @@
           authMessage.style.color = pendingMessageColor;
           authMessage.textContent = pendingMessage;
         }
+        updateFloatingButtons();
       }
     });
   </script>
