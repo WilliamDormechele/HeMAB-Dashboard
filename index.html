@@ -407,6 +407,77 @@
       color: #4b5563;
     }
 
+    /* --- QA REPORTS: CATEGORY PANELS --- */
+
+.reports-category {
+  border-radius: 14px;
+  padding: 10px 12px 14px;
+  margin-bottom: 18px;
+  border: 1px solid #d0d7e6;
+  background: #f9fafb;
+}
+
+/* remove default triangle bullet spacing */
+.reports-category summary {
+  list-style: none;
+  cursor: pointer;
+}
+
+/* remove default triangle marker in some browsers */
+.reports-category summary::-webkit-details-marker {
+  display: none;
+}
+
+/* summary header layout */
+.reports-category-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.reports-category-title {
+  font-size: 0.98rem;
+  font-weight: 600;
+}
+
+.reports-category-tag {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.7);
+  border: 1px solid rgba(255,255,255,0.9);
+}
+
+/* little chevron */
+.reports-category-chevron {
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+
+/* spacing below header inside panel */
+.reports-category-body {
+  margin-top: 10px;
+}
+
+/* colour themes per dataset */
+.reports-category.hh {
+  border-left: 5px solid #2563eb;
+  background: #eff6ff;
+}
+
+.reports-category.women {
+  border-left: 5px solid #db2777;
+  background: #fdf2f8;
+}
+
+.reports-category.hw {
+  border-left: 5px solid #059669;
+  background: #ecfdf5;
+}
+
     footer {
       background: #1f3044;
       color: #ffffff;
@@ -533,85 +604,200 @@
       </div>
 
       <!-- TAB: QA REPORTS -->
-      <div id="tab-reports" class="tab-content">
-        <div class="reports-card">
-          <h2>HH Members QA Reports</h2>
-          <p>
-            Select a fieldworker to download their latest QA PDF.
-            Place your PDFs in <code>reports/HH_members/</code> in the GitHub repo
-            and update filenames here when dates change.
-          </p>
+<div id="tab-reports" class="tab-content">
+  <div class="reports-card">
 
-          <div class="reports-section-title">By Fieldworker</div>
-          <div class="reports-grid">
-            <!-- Update these filenames to match your actual PDFs -->
-            <a class="report-link" href="reports/HH_members/hhmembers_QA_report_AW_11_Dec_2025.pdf" download>
-              <span class="fw-code">AW</span>
-              <span class="fw-label">Download QA report (AW)</span>
-            </a>
-            <a class="report-link" href="reports/HH_members/hhmembers_QA_report_AR_11_Dec_2025.pdf" download>
-              <span class="fw-code">AR</span>
-              <span class="fw-label">Download QA report (AR)</span>
-            </a>
-            <a class="report-link" href="reports/HH_members/hhmembers_QA_report_BB_11_Dec_2025.pdf" download>
-              <span class="fw-code">BB</span>
-              <span class="fw-label">Download QA report (BB)</span>
-            </a>
-            <a class="report-link" href="reports/HH_members/hhmembers_QA_report_CJ_11_Dec_2025.pdf" download>
-              <span class="fw-code">CJ</span>
-              <span class="fw-label">Download QA report (CJ)</span>
-            </a>
-            <a class="report-link" href="reports/HH_members/hhmembers_QA_report_FR_11_Dec_2025.pdf" download>
-              <span class="fw-code">FR</span>
-              <span class="fw-label">Download QA report (FR)</span>
-            </a>
-            <a class="report-link" href="reports/HH_members/hhmembers_QA_report_KP_11_Dec_2025.pdf" download>
-              <span class="fw-code">KP</span>
-              <span class="fw-label">Download QA report (KP)</span>
-            </a>
-            <a class="report-link" href="reports/HH_members/hhmembers_QA_report_MA_11_Dec_2025.pdf" download>
-              <span class="fw-code">MA</span>
-              <span class="fw-label">Download QA report (MA)</span>
-            </a>
-            <a class="report-link" href="reports/HH_members/hhmembers_QA_report_RA_11_Dec_2025.pdf" download>
-              <span class="fw-code">RA</span>
-              <span class="fw-label">Download QA report (RA)</span>
-            </a>
-            <a class="report-link" href="reports/HH_members/hhmembers_QA_report_SC_11_Dec_2025.pdf" download>
-              <span class="fw-code">SC</span>
-              <span class="fw-label">Download QA report (SC)</span>
-            </a>
-            <a class="report-link" href="reports/HH_members/hhmembers_QA_report_AF_11_Dec_2025.pdf" download>
-              <span class="fw-code">AF</span>
-              <span class="fw-label">Download QA report (AF)</span>
-            </a>
-            <a class="report-link" href="reports/HH_members/hhmembers_QA_report_AJ_11_Dec_2025.pdf" download>
-              <span class="fw-code">AJ</span>
-              <span class="fw-label">Download QA report (AJ)</span>
-            </a>
-            <a class="report-link" href="reports/HH_members/hhmembers_QA_report_AL_11_Dec_2025.pdf" download>
-              <span class="fw-code">AL</span>
-              <span class="fw-label">Download QA report (AL)</span>
-            </a>
-            <a class="report-link" href="reports/HH_members/hhmembers_QA_report_AM_11_Dec_2025.pdf" download>
-              <span class="fw-code">AM</span>
-              <span class="fw-label">Download QA report (AM)</span>
-            </a>
-          </div>
+    <h2>QA Reports</h2>
+    <p>
+      Select a fieldworker or summary report to download the latest QA PDFs.
+      Files should be placed in
+      <code>reports/HH_members/</code>,
+      <code>reports/Women/</code>, and
+      <code>reports/HealthWorkers/</code> in the GitHub repo.
+    </p>
 
-          <div class="reports-section-title">Summary & Error Logs</div>
-          <div class="reports-grid">
-            <a class="report-link" href="reports/HH_members/hhmembers_QA_report_11December2025.pdf" download>
-              <span class="fw-code">All FWs</span>
-              <span class="fw-label">Overall HH members QA summary</span>
-            </a>
-            <a class="report-link" href="reports/HH_members/hhmembers_QA_errors_11December2025.pdf" download>
-              <span class="fw-code">Errors</span>
-              <span class="fw-label">Detailed HH members QA errors log</span>
-            </a>
+    <!-- ============================
+         HH MEMBERS
+    ============================= -->
+    <details class="reports-category hh" open>
+      <summary>
+        <div class="reports-category-header">
+          <div class="reports-category-title">
+            HH Members – QA Reports
           </div>
+          <div class="reports-category-tag">Household Members</div>
+          <div class="reports-category-chevron">▾</div>
+        </div>
+      </summary>
+
+      <div class="reports-category-body">
+        <div class="reports-section-title">By Fieldworker</div>
+        <div class="reports-grid">
+          <!-- Update these filenames to match your actual PDFs -->
+          <a class="report-link" href="reports/HH_members/hhmembers_QA_report_AW.pdf" download>
+            <span class="fw-code">AW</span>
+            <span class="fw-label">HH Members report (AW)</span>
+          </a>
+          <a class="report-link" href="reports/HH_members/hhmembers_QA_report_AR.pdf" download>
+            <span class="fw-code">AR</span>
+            <span class="fw-label">HH Members report (AR)</span>
+          </a>
+          <a class="report-link" href="reports/HH_members/hhmembers_QA_report_BB.pdf" download>
+            <span class="fw-code">BB</span>
+            <span class="fw-label">HH Members report (BB)</span>
+          </a>
+          <a class="report-link" href="reports/HH_members/hhmembers_QA_report_CJ.pdf" download>
+            <span class="fw-code">CJ</span>
+            <span class="fw-label">HH Members report (CJ)</span>
+          </a>
+          <a class="report-link" href="reports/HH_members/hhmembers_QA_report_FR.pdf" download>
+            <span class="fw-code">FR</span>
+            <span class="fw-label">HH Members report (FR)</span>
+          </a>
+          <a class="report-link" href="reports/HH_members/hhmembers_QA_report_KP.pdf" download>
+            <span class="fw-code">KP</span>
+            <span class="fw-label">HH Members report (KP)</span>
+          </a>
+          <a class="report-link" href="reports/HH_members/hhmembers_QA_report_MA.pdf" download>
+            <span class="fw-code">MA</span>
+            <span class="fw-label">HH Members report (MA)</span>
+          </a>
+          <a class="report-link" href="reports/HH_members/hhmembers_QA_report_RA.pdf" download>
+            <span class="fw-code">RA</span>
+            <span class="fw-label">HH Members report (RA)</span>
+          </a>
+          <a class="report-link" href="reports/HH_members/hhmembers_QA_report_SC.pdf" download>
+            <span class="fw-code">SC</span>
+            <span class="fw-label">HH Members report (SC)</span>
+          </a>
+          <a class="report-link" href="reports/HH_members/hhmembers_QA_report_AF.pdf" download>
+            <span class="fw-code">AF</span>
+            <span class="fw-label">HH Members report (AF)</span>
+          </a>
+          <a class="report-link" href="reports/HH_members/hhmembers_QA_report_AJ.pdf" download>
+            <span class="fw-code">AJ</span>
+            <span class="fw-label">HH Members report (AJ)</span>
+          </a>
+          <a class="report-link" href="reports/HH_members/hhmembers_QA_report_AL.pdf" download>
+            <span class="fw-code">AL</span>
+            <span class="fw-label">HH Members report (AL)</span>
+          </a>
+          <a class="report-link" href="reports/HH_members/hhmembers_QA_report_AM.pdf" download>
+            <span class="fw-code">AM</span>
+            <span class="fw-label">HH Members report (AM)</span>
+          </a>
+        </div>
+
+        <div class="reports-section-title">Summary & Error Logs</div>
+        <div class="reports-grid">
+          <a class="report-link" href="reports/HH_members/hhmembers_QA_report.pdf" download>
+            <span class="fw-code">All FWs</span>
+            <span class="fw-label">Overall HH Members QA summary</span>
+          </a>
+          <a class="report-link" href="reports/HH_members/hhmembers_QA_errors.pdf" download>
+            <span class="fw-code">Errors</span>
+            <span class="fw-label">Detailed HH Members QA errors log</span>
+          </a>
         </div>
       </div>
+    </details>
+
+    <!-- ============================
+         WOMEN TOOL
+    ============================= -->
+    <details class="reports-category women">
+      <summary>
+        <div class="reports-category-header">
+          <div class="reports-category-title">
+            Women Tool – QA Reports
+          </div>
+          <div class="reports-category-tag">Women</div>
+          <div class="reports-category-chevron">▾</div>
+        </div>
+      </summary>
+
+      <div class="reports-category-body">
+        <div class="reports-section-title">By Fieldworker</div>
+        <div class="reports-grid">
+          <!-- Example filenames – update to match your PDFs -->
+          <a class="report-link" href="reports/Women/women_QA_report_AW.pdf" download>
+            <span class="fw-code">AW</span>
+            <span class="fw-label">Women Tool report (AW)</span>
+          </a>
+          <a class="report-link" href="reports/Women/women_QA_report_AR.pdf" download>
+            <span class="fw-code">AR</span>
+            <span class="fw-label">Women Tool report (AR)</span>
+          </a>
+          <a class="report-link" href="reports/Women/women_QA_report_BB.pdf" download>
+            <span class="fw-code">BB</span>
+            <span class="fw-label">Women Tool report (BB)</span>
+          </a>
+          <!-- add more fieldworkers as needed -->
+        </div>
+
+        <div class="reports-section-title">Summary & Error Logs</div>
+        <div class="reports-grid">
+          <a class="report-link" href="reports/Women/women_QA_report.pdf" download>
+            <span class="fw-code">All FWs</span>
+            <span class="fw-label">Overall Women Tool QA summary</span>
+          </a>
+          <a class="report-link" href="reports/Women/women_QA_errors.pdf" download>
+            <span class="fw-code">Errors</span>
+            <span class="fw-label">Detailed Women Tool QA errors log</span>
+          </a>
+        </div>
+      </div>
+    </details>
+
+    <!-- ============================
+         HEALTH WORKERS
+    ============================= -->
+    <details class="reports-category hw">
+      <summary>
+        <div class="reports-category-header">
+          <div class="reports-category-title">
+            Health Workers – QA Reports
+          </div>
+          <div class="reports-category-tag">Health Workers</div>
+          <div class="reports-category-chevron">▾</div>
+        </div>
+      </summary>
+
+      <div class="reports-category-body">
+        <div class="reports-section-title">By Fieldworker</div>
+        <div class="reports-grid">
+          <!-- Example filenames – update to match your PDFs -->
+          <a class="report-link" href="reports/HealthWorkers/hw_QA_report_AW.pdf" download>
+            <span class="fw-code">AW</span>
+            <span class="fw-label">Health Workers report (AW)</span>
+          </a>
+          <a class="report-link" href="reports/HealthWorkers/hw_QA_report_AR.pdf" download>
+            <span class="fw-code">AR</span>
+            <span class="fw-label">Health Workers report (AR)</span>
+          </a>
+          <a class="report-link" href="reports/HealthWorkers/hw_QA_report_BB.pdf" download>
+            <span class="fw-code">BB</span>
+            <span class="fw-label">Health Workers report (BB)</span>
+          </a>
+          <!-- add more fieldworkers as needed -->
+        </div>
+
+        <div class="reports-section-title">Summary & Error Logs</div>
+        <div class="reports-grid">
+          <a class="report-link" href="reports/HealthWorkers/hw_QA_report.pdf" download>
+            <span class="fw-code">All FWs</span>
+            <span class="fw-label">Overall Health Workers QA summary</span>
+          </a>
+          <a class="report-link" href="reports/HealthWorkers/hw_QA_errors.pdf" download>
+            <span class="fw-code">Errors</span>
+            <span class="fw-label">Detailed Health Workers QA errors log</span>
+          </a>
+        </div>
+      </div>
+    </details>
+
+  </div>
+</div>
 
     </div>
   </main>
