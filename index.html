@@ -1284,6 +1284,7 @@
     let isSignInMode = true;
     let pendingMessage = "";
     let pendingMessageColor = "#b00";
+    let justLoggedIn = false;
 
     // Password pattern: exactly 6 digits
     const passwordPattern = /^\d{6}$/;
@@ -1386,6 +1387,7 @@
 
       try {
         if (isSignInMode) {
+          justLoggedIn = true;
           await auth.signInWithEmailAndPassword(email, password);
         } else {
           const cred = await auth.createUserWithEmailAndPassword(email, password);
@@ -1462,6 +1464,13 @@
         authContainer.style.display = "none";
         dashboardContainer.style.display = "block";
         updateFloatingButtons();
+
+        // Show success toast ONLY right after a manual login
+        if (justLoggedIn) {
+          showToast("Login successful. Welcome to the HeMAB QA Dashboard.", "success");
+          justLoggedIn = false;
+        }
+        
       } else {
         userEmailDisplay.textContent = "Not signed in";
         logoutBtn.style.display = "none";
