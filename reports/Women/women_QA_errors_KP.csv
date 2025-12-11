@@ -1,0 +1,2 @@
+recordid,start,fwcode,mcode,section,errtype,varname,errordesc,start_fmt
+536,December 11, 2025 12:24,KP,NFE000008002043,Section A – Demographic and SES,Out-of-range,a2_2_3b,"Out-of-range value for a2_2_3b. If yes, how many powered fans do you have in your household? (a2_2_3b); expected 0–10",
