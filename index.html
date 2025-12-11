@@ -548,6 +548,30 @@
   background: rgba(15, 23, 42, 0.06);
 }
 
+/* Toast message for info / errors */
+.toast {
+  position: fixed;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 260px;
+  max-width: 90%;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.94);
+  color: #f9fafb;
+  font-size: 0.85rem;
+  text-align: center;
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  z-index: 100;
+}
+
+.toast.show {
+  opacity: 1;
+}
 
     /* --- QA REPORTS: CATEGORY PANELS --- */
     .reports-category {
@@ -1068,6 +1092,9 @@
     <div class="footer-sub">
       © <span id="footerYear"></span> GH/NHRC–HeMAB Project — All Rights Reserved
     </div>
+
+    <div id="toast" class="toast"></div>
+
   </footer>
 
   <!-- Firebase libraries -->
