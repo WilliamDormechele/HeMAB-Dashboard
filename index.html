@@ -585,23 +585,24 @@
 /* Toast message for info / errors */
 .toast {
   position: fixed;
-  bottom: 18px;
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);   /* centre horizontally + vertically */
   min-width: 260px;
   max-width: 90%;
-  padding: 10px 14px;
-  border-radius: 999px;
+  padding: 14px 18px;
+  border-radius: 12px;
   background: rgba(15, 23, 42, 0.94);
   color: #f9fafb;
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   text-align: center;
-  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.5);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.35);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.25s ease;
-  z-index: 100;
+  z-index: 200;
 }
+
 
 .toast.show {
   opacity: 1;
@@ -1413,20 +1414,15 @@
       const fwSpan = link.querySelector(".fw-code");
       const fwCode = fwSpan ? fwSpan.textContent.trim() : "";
 
-      link.addEventListener(
-        "click",
-        function (e) {
-          e.preventDefault();
-          const msg = fwCode
-            ? `No QA report / query file is available yet for ${fwCode}.`
-            : "No QA report / query file is available yet.";
-          showToast(msg, "error");   // make it red
-        },
-        { once: true }
-      );
+      link.addEventListener("click", function (e) {
+        e.preventDefault();
+        const msg = fwCode
+          ? `No QA report / query file is available yet for ${fwCode}.`
+          : "No QA report / query file is available yet.";
+
+        showToast(msg, "error");   // will show EVERY time now
+      });
     }
-
-
 
 
       function initReportLinkChecks() {
@@ -1489,26 +1485,26 @@
 
 
         // ---------- TOAST HELPER ----------
-        function showToast(message, type = "normal") {
-          const toast = document.getElementById("toast");
-          if (!toast) return;
+      let toastTimeout;
 
-          toast.textContent = message;
+      function showToast(message, type = "normal") {
+        const toast = document.getElementById("toast");
 
-          // Reset type
-          toast.classList.remove("error");
+        toast.textContent = message;
+        toast.classList.remove("error");
 
-          if (type === "error") {
-            toast.classList.add("error");
-          }
+        if (type === "error") toast.classList.add("error");
 
-          toast.classList.add("show");
+        toast.classList.add("show");
 
-          // Hide after 3 seconds
-          setTimeout(() => {
-            toast.classList.remove("show");
-          }, 3000);
-        }
+        // Reset existing timer if needed
+        if (toastTimeout) clearTimeout(toastTimeout);
+
+        toastTimeout = setTimeout(() => {
+          toast.classList.remove("show");
+        }, 3000);
+      }
+
 
   // Temporary test
   // window.addEventListener("load", () => showToast("Toast test OK", "error"));
