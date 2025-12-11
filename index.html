@@ -734,10 +734,13 @@
             <div class="reports-category-body">
               <div class="reports-section-title">By Fieldworker</div>
               <div class="reports-grid">
-                <a class="report-link" href="reports/HH_members/hhmembers_QA_report_AW.pdf" download>
+
+                <a class="report-link" data-check="exists" href="reports/HH_members/hhmembers_QA_report_AW.pdf" download>
                   <span class="fw-code">AW</span>
                   <span class="fw-label">HH Members report (AW)</span>
+                  <span class="download-badge">Download</span>
                 </a>
+
                 <a class="report-link" href="reports/HH_members/hhmembers_QA_report_AR.pdf" download>
                   <span class="fw-code">AR</span>
                   <span class="fw-label">HH Members report (AR)</span>
@@ -794,10 +797,17 @@
                   <span class="fw-code">All FWs</span>
                   <span class="fw-label">Overall HH Members QA summary</span>
                 </a>
-                <a class="report-link" href="reports/HH_members/hhmembers_QA_errors.dta" download>
+                <!-- <a class="report-link" href="reports/HH_members/hhmembers_QA_errors.dta" download>
                   <span class="fw-code">Errors</span>
                   <span class="fw-label">Detailed HH Members QA errors log (Stata)</span>
+                </a> -->
+
+                <a class="report-link error-link" data-check="exists" href="reports/HH_members/hhmembers_QA_errors.dta" download>
+                  <span class="fw-code">Errors</span>
+                  <span class="fw-label">Detailed HH Members QA errors log (Stata)</span>
+                  <span class="download-badge">Download</span>
                 </a>
+
               </div>
             </div>
           </details>
@@ -817,10 +827,17 @@
             <div class="reports-category-body">
               <div class="reports-section-title">By Fieldworker</div>
               <div class="reports-grid">
-                <a class="report-link" href="reports/Women/women_QA_report_AW.pdf" download>
+                <!-- <a class="report-link" href="reports/Women/women_QA_report_AW.pdf" download>
                   <span class="fw-code">AW</span>
                   <span class="fw-label">Women report (AW)</span>
+                </a> -->
+
+                <a class="report-link" data-check="exists" href="reports/Women/women_QA_report_AW.pdf" download>
+                  <span class="fw-code">AW</span>
+                  <span class="fw-label">Women report (AW)</span>
+                  <span class="download-badge">Download</span>
                 </a>
+
                 <a class="report-link" href="reports/Women/women_QA_report_AR.pdf" download>
                   <span class="fw-code">AR</span>
                   <span class="fw-label">Women report (AR)</span>
@@ -877,10 +894,17 @@
                   <span class="fw-code">All FWs</span>
                   <span class="fw-label">Overall Women Tool QA summary</span>
                 </a>
-                <a class="report-link" href="reports/Women/women_QA_errors.dta" download>
+                <!-- <a class="report-link" href="reports/Women/women_QA_errors.dta" download>
                   <span class="fw-code">Errors</span>
                   <span class="fw-label">Detailed Women Tool QA errors log</span>
+                </a> -->
+
+                <a class="report-link error-link" data-check="exists" href="reports/Women/women_QA_errors.dta" download>
+                  <span class="fw-code">Errors</span>
+                  <span class="fw-label">Detailed Women Tool QA errors log (Stata)</span>
+                  <span class="download-badge">Download</span>
                 </a>
+
               </div>
             </div>
           </details>
@@ -900,10 +924,17 @@
             <div class="reports-category-body">
               <div class="reports-section-title">By Fieldworker</div>
               <div class="reports-grid">
-                <a class="report-link" href="reports/HealthWorkers/healthworkers_QA_errors_AW.pdf" download>
+                <!-- <a class="report-link" href="reports/HealthWorkers/healthworkers_QA_errors_AW.pdf" download>
                   <span class="fw-code">AW</span>
                   <span class="fw-label">Health Workers report (AW)</span>
+                </a> -->
+
+                <a class="report-link" data-check="exists" href="reports/HealthWorkers/healthworkers_QA_errors_AW.pdf" download>
+                  <span class="fw-code">AW</span>
+                  <span class="fw-label">Health Workers report (AW)</span>
+                  <span class="download-badge">Download</span>
                 </a>
+
                 <a class="report-link" href="reports/HealthWorkers/healthworkers_QA_errors_AR.pdf" download>
                   <span class="fw-code">AR</span>
                   <span class="fw-label">Health Workers report (AR)</span>
@@ -960,10 +991,16 @@
                   <span class="fw-code">All FWs</span>
                   <span class="fw-label">Overall Health Workers QA summary</span>
                 </a>
-                <a class="report-link" href="reports/HealthWorkers/hw_QA_errors.dta" download>
+                <!-- <a class="report-link" href="reports/HealthWorkers/hw_QA_errors.dta" download>
                   <span class="fw-code">Errors</span>
                   <span class="fw-label">Detailed Health Workers QA errors log</span>
-                </a>
+                </a> -->
+
+                                <a class="report-link error-link" data-check="exists" href="reports/HealthWorkers/hw_QA_errors.dta" download>
+                                  <span class="fw-code">Errors</span>
+                                  <span class="fw-label">Detailed Health Workers QA errors log (Stata)</span>
+                                  <span class="download-badge">Download</span>
+                                </a>
               </div>
             </div>
           </details>
@@ -1224,6 +1261,43 @@
         updateFloatingButtons();
       }
     });
+
+    // ---------- CHECK REPORT FILE AVAILABILITY ----------
+      function markNoFile(link) {
+        link.classList.add("no-file");
+        // Disable download behaviour
+        link.addEventListener("click", function (e) {
+          e.preventDefault();
+          alert("No QA report / query file is available for you yet.");
+        }, { once: true });
+      }
+
+      function initReportLinkChecks() {
+        const reportLinks = document.querySelectorAll(".report-link[data-check='exists']");
+        reportLinks.forEach(link => {
+          const url = link.getAttribute("href");
+          if (!url) return;
+
+          // Use HEAD to just check existence
+          fetch(url, { method: "HEAD" })
+            .then(res => {
+              if (res.ok) {
+                // file exists
+                link.classList.add("has-file");
+              } else {
+                // file missing
+                markNoFile(link);
+              }
+            })
+            .catch(() => {
+              markNoFile(link);
+            });
+        });
+      }
+
+      // Run after page loads
+      window.addEventListener("load", initReportLinkChecks);
+
   </script>
 </body>
 
