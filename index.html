@@ -539,15 +539,28 @@
 }
 
 /* Optional small “Download” badge */
-.report-link .download-badge {
-  margin-top: 3px;
-  font-size: 0.7rem;
+.download-badge {
+  margin-top: 6px;
+  font-size: 0.72rem;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  padding: 2px 6px;
+  letter-spacing: 0.05em;
+  padding: 4px 10px;
   border-radius: 999px;
-  background: rgba(15, 23, 42, 0.06);
+
+  background: #14307c;         /* professional blue */
+  color: #ffffff;              /* white text */
+  border: 1px solid #14307c;   /* darker blue border */
+  box-shadow: 0 2px 4px rgba(28, 4, 138, 0.15);
+  transition: background 0.2s ease, transform 0.1s ease;
 }
+
+.report-link:hover .download-badge {
+  background: #0038b1;         /* lighter blue on hover */
+  transform: translateY(-1px);
+}
+
+
 
 
 /* Toasts – stacked notifications (top-right) */
