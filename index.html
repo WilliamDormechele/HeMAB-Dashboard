@@ -553,14 +553,17 @@
 /* Toasts – stacked notifications (top-right) */
 .toast-container {
   position: fixed;
-  top: 16px;
-  right: 16px;
+  top: 50%;               /* vertically in the middle */
+  left: 50%;              /* horizontally in the middle */
+  transform: translate(-50%, -50%);
   z-index: 200;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  pointer-events: none; /* clicks pass through unless on a toast */
+  pointer-events: none;   /* allow click-through unless on toast */
+  align-items: center;    /* center-align stacked toasts */
 }
+
 
 /* Base toast */
 .toast {
