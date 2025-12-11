@@ -792,6 +792,10 @@
     Checking last update time…
   </div>
 
+  <div id="buildInfo" class="refresh-info" style="border-top: none;">
+    Loading build information…
+  </div>
+
   <a id="top"></a>
 
   <!-- LOGIN / SIGN-UP AREA -->
@@ -1543,14 +1547,12 @@
 
       window.addEventListener("load", () => {
         initReportLinkChecks();
-
-        // Wait slightly to allow HEAD checks to finish,
-        // then attach download toasts only to existing files
         setTimeout(enableDownloadToasts, 600);
 
-        // Load "Last updated" info from version.json
-        loadLastRefresh();
+        loadLastRefresh();  // Last updated
+        loadBuildInfo();    // Build number + version
       });
+
 
 
 
@@ -1692,6 +1694,30 @@
         infoEl.textContent = "⚠ Unable to load last update time";
       }
     }
+
+    // ---------- LOAD BUILD NUMBER + VERSION ----------
+      async function loadBuildInfo() {
+        const buildEl = document.getElementById("buildInfo");
+        if (!buildEl) return;
+
+        try {
+          // Cache-buster
+          const res = await fetch("version.json?" + Date.now());
+          if (!res.ok) throw new Error("File not found");
+
+          const data = await res.json();
+
+          // Read fields from JSON
+          const build = data.build_number || "Unknown build";
+          const version = data.version || "v0.0.0";
+
+          buildEl.textContent = `📦 ${build} | 🏷 Version ${version}`;
+
+        } catch (e) {
+          buildEl.textContent = "⚠ Unable to load build/version info";
+        }
+      }
+
 
   </script>
 </body>
