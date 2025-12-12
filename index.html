@@ -369,6 +369,46 @@
       border: none;
     }
 
+    .pbi-actions{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin:10px 0 6px;
+  flex-wrap:wrap;
+}
+
+.pbi-btn{
+  padding:8px 14px;
+  border-radius:999px;
+  font-size:0.85rem;
+  font-weight:600;
+  text-decoration:none;
+  color:#ffffff;
+  box-shadow:0 6px 16px rgba(0,0,0,0.25);
+}
+
+.pbi-btn.pdf{
+  background:#dc2626; /* red */
+}
+
+.pbi-btn.ppt{
+  background:#ea580c; /* orange */
+}
+
+.pbi-btn:hover{
+  filter:brightness(1.05);
+}
+
+.pbi-note{
+  font-size:0.8rem;
+  color:#6b7280;
+}
+
+.pbi-meta{
+  font-size:0.8rem;
+  color:#6b7280;
+}
+
     .back-to-top {
       text-align: center;
       margin: 20px 0 10px;
@@ -872,8 +912,23 @@
           Use the filters and tabs in the Power BI report to explore/monitor
           fieldworkers performance, household interviews, and error patterns.
         </p>
-
         </div>
+
+<div class="pbi-actions">
+  <a class="pbi-btn pdf" data-file="reports/PowerBI/HeMAB_QA_Dashboard_Latest.pdf" download>
+    ⬇ Download PDF
+  </a>
+
+  <a class="pbi-btn ppt" data-file="reports/PowerBI/HeMAB_QA_Dashboard_Latest.pptx" download>
+    ⬇ Download PPT
+  </a>
+
+  <span class="pbi-meta" id="pbiLastUpdated">
+    Last updated: —
+  </span>
+</div>
+
+
 
         <a id="pb-navigator"></a>
         <div class="powerbi-container">
@@ -1614,6 +1669,82 @@
           const timeoutId = setTimeout(() => dismissToast(toast), 3500);
           toast.dataset.timeoutId = timeoutId;
         }
+ 
+  // ---------- POWER BI DOWNLOAD TOASTS ----------
+  window.addEventListener("load", () => {
+    const pdfBtn = document.querySelector(".pbi-btn.pdf");
+    const pptBtn = document.querySelector(".pbi-btn.ppt");
+
+    if (pdfBtn) {
+      pdfBtn.addEventListener("click", () => {
+        showToast("Downloading Power BI dashboard (PDF)…");
+      });
+    }
+
+    if (pptBtn) {
+      pptBtn.addEventListener("click", () => {
+        showToast("Downloading Power BI dashboard (PowerPoint)…");
+      });
+    }
+  });
+
+
+  // ---------- POWER BI DOWNLOAD CHECK + LAST UPDATED ----------
+    window.addEventListener("load", () => {
+      const buttons = document.querySelectorAll(".pbi-btn");
+      const lastUpdatedEl = document.getElementById("pbiLastUpdated");
+
+      let latestDate = null;
+
+      buttons.forEach(btn => {
+        const fileUrl = btn.getAttribute("data-file");
+
+        fetch(fileUrl, { method: "HEAD" })
+          .then(res => {
+            if (!res.ok) throw new Error("Missing file");
+
+            // Enable button
+            btn.setAttribute("href", fileUrl);
+            btn.classList.remove("disabled");
+
+            // Toast on click
+            btn.addEventListener("click", () => {
+              const type = btn.classList.contains("pdf") ? "PDF" : "PowerPoint";
+              showToast(`Downloading Power BI dashboard (${type})…`);
+            });
+
+            // Extract last-modified header
+            const lm = res.headers.get("last-modified");
+            if (lm) {
+              const date = new Date(lm);
+              if (!latestDate || date > latestDate) {
+                latestDate = date;
+              }
+            }
+          })
+          .catch(() => {
+            // Disable button if missing
+            btn.classList.add("disabled");
+            btn.removeAttribute("href");
+
+            btn.addEventListener("click", e => {
+              e.preventDefault();
+              showToast("This export is not available yet.", "error");
+            });
+          });
+      });
+
+      // Show last updated date
+      if (latestDate && lastUpdatedEl) {
+        lastUpdatedEl.textContent =
+          "Last updated: " +
+          latestDate.toLocaleDateString(undefined, {
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+          });
+      }
+    });
 
         function dismissToast(toast) {
           if (!toast) return;
