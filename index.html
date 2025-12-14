@@ -923,12 +923,10 @@
     ⬇ Download PPT
   </a>
 
-  <span class="pbi-meta" id="pbiLastUpdated">
+  <span class="refresh-info" id="refreshInfo">
     Last updated: —
   </span>
 </div>
-
-
 
         <a id="pb-navigator"></a>
         <div class="powerbi-container">
@@ -1043,10 +1041,6 @@
                   <span class="fw-label">Overall HH Members QA summary</span>
                   <span class="download-badge">Download</span>
                 </a>
-                <!-- <a class="report-link" data-check="exists" href="reports/HH_members/hhmembers_QA_errors.dta" download>
-                  <span class="fw-code">Errors</span>
-                  <span class="fw-label">Detailed HH Members QA errors log (Stata)</span>
-                </a> -->
 
                 <a class="report-link error-link" data-check="exists" href="reports/HH_members/hhmembers_QA_errors.dta" download>
                   <span class="fw-code">Errors</span>
@@ -1149,10 +1143,6 @@
                   <span class="fw-label">Overall Women Tool QA summary</span>
                   <span class="download-badge">Download</span>
                 </a>
-                <!-- <a class="report-link" data-check="exists" href="reports/Women/women_QA_errors.dta" download>
-                  <span class="fw-code">Errors</span>
-                  <span class="fw-label">Detailed Women Tool QA errors log</span>
-                </a> -->
 
                 <a class="report-link error-link" data-check="exists" href="reports/Women/women_QA_errors.dta" download>
                   <span class="fw-code">Errors</span>
@@ -1708,10 +1698,10 @@
             btn.classList.remove("disabled");
 
             // Toast on click
-            btn.addEventListener("click", () => {
-              const type = btn.classList.contains("pdf") ? "PDF" : "PowerPoint";
-              showToast(`Downloading Power BI dashboard (${type})…`);
-            });
+            // btn.addEventListener("click", () => {
+            //  const type = btn.classList.contains("pdf") ? "PDF" : "PowerPoint";
+            //  showToast(`Downloading Power BI dashboard (${type})…`);
+            // });
 
             // Extract last-modified header
             const lm = res.headers.get("last-modified");
