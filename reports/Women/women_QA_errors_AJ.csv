@@ -1,0 +1,2 @@
+recordid,start,fwcode,mcode,section,errtype,varname,errordesc,start_fmt
+1336,January 12, 2026 12:15,AJ,CAM000019001096,Section B – Pregnancy related questions,Out-of-range,b1_3,Out-of-range value for b1_3. How many months ago did your last pregnancy end? (b1_3); expected 0–11 months since pregnancy ended,

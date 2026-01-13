@@ -1,3 +1,2 @@
 recordid,start,fwcode,mcode,section,errtype,varname,errordesc,start_fmt
-357,November 25, 2025 10:49,FR,NAA000004002048,Section J – Ecoanxiety / extreme heat,Missing,j1_1,"Missing j1_1. In the last two weeks, how often have you felt worried or stressed when th (j1_1) when interview was conducted (a1_1 = Yes - interview can be conducted)",
 418,December 15, 2025 13:50,FR,NDB000003006037,Section B – Pregnancy related questions,Out-of-range,b1_3,Out-of-range value for b1_3. How many months ago did your last pregnancy end? (b1_3); expected 0–11 months since pregnancy ended,
