@@ -1690,24 +1690,62 @@ F
           const tag = cat.querySelector(".reports-category-tag");
           if (!tag) return;
 
-          // Count all report links in this category that participate in checks
-          const links = cat.querySelectorAll(".report-link[data-check='exists']");
+          // 🔍 Find ONLY the "By Fieldworker" section
+          const fwSectionTitle = Array.from(
+            cat.querySelectorAll(".reports-section-title")
+          ).find(el => el.textContent.trim() === "By Fieldworker");
+
+          if (!fwSectionTitle) return;
+
+          // The grid immediately following "By Fieldworker"
+          const fwGrid = fwSectionTitle.nextElementSibling;
+          if (!fwGrid || !fwGrid.classList.contains("reports-grid")) return;
+
+          const links = fwGrid.querySelectorAll(".report-link[data-check='exists']");
           const total = links.length;
+          const available = fwGrid.querySelectorAll(
+            ".report-link[data-check='exists'].has-file"
+          ).length;
 
-          // "Available" means has-file (set by your HEAD checks)
-          const available = cat.querySelectorAll(".report-link[data-check='exists'].has-file").length;
-
-          // Remove an old counter if we already added one (prevents duplicates)
+          // Remove existing counter if present
           const old = tag.querySelector(".category-count");
           if (old) old.remove();
 
           // Add counter badge
           const badge = document.createElement("span");
           badge.className = "category-count";
-          badge.textContent = `${available} / ${total} available`;
+          badge.textContent = `${available} / ${total} fieldworkers`;
           tag.appendChild(badge);
         });
       }
+
+      function sortFieldworkersAvailableFirst() {
+        const categories = document.querySelectorAll("details.reports-category");
+
+        categories.forEach(cat => {
+          // Find ONLY the "By Fieldworker" section
+          const fwSectionTitle = Array.from(
+            cat.querySelectorAll(".reports-section-title")
+          ).find(el => el.textContent.trim() === "By Fieldworker");
+
+          if (!fwSectionTitle) return;
+
+          // Grid immediately after "By Fieldworker"
+          const fwGrid = fwSectionTitle.nextElementSibling;
+          if (!fwGrid || !fwGrid.classList.contains("reports-grid")) return;
+
+          // Collect only the fieldworker links we checked
+          const links = Array.from(fwGrid.querySelectorAll(".report-link[data-check='exists']"));
+
+          // Partition: available first, missing last (stable within each group)
+          const available = links.filter(a => a.classList.contains("has-file"));
+          const missing = links.filter(a => a.classList.contains("no-file"));
+
+          // Re-append in the new order
+          [...available, ...missing].forEach(a => fwGrid.appendChild(a));
+        });
+      }
+
 
       // ---------- ADD DOWNLOAD TOAST FEEDBACK ----------
       function enableDownloadToasts() {
@@ -1735,17 +1773,16 @@ F
         });
       }
 
-
       window.addEventListener("load", async () => {
-        await initReportLinkChecks();     // wait until file existence checks finish
-        updateCategoryCounters();         // now counters are accurate
+        await initReportLinkChecks();          // checks set .has-file / .no-file
+        sortFieldworkersAvailableFirst();      // ✅ move available fieldworkers to the top
+        updateCategoryCounters();              // ✅ now counters reflect the sorted fieldworker set
 
         setTimeout(enableDownloadToasts, 600);
 
         loadLastRefresh();  // Last updated
         loadBuildInfo();    // Build number + version
       });
-
 
         // ---------- TOAST HELPERS (stacked, clickable, with icons) ----------
         function showToast(message, type = "info") {
