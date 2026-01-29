@@ -732,19 +732,60 @@
       font-weight: 600;
     }
 
-    .reports-category-tag {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      padding: 4px 8px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.7);
-      border: 1px solid rgba(255, 255, 255, 0.9);
+    /* Modern category chip */
+    .reports-category-tag{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      font-size:0.72rem;
+      font-weight:700;
+      letter-spacing:0.04em;
+      padding:6px 12px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.92);
+      border:1px solid rgba(0,0,0,0.08);
+      color:#111827;
+      box-shadow:0 2px 10px rgba(15, 23, 42, 0.10);
+      text-transform:none; /* remove forced uppercase */
     }
+
+    /* Category-specific chip colors */
+    .reports-category.hh .reports-category-tag{
+      background:#dbeafe;
+      border-color:rgba(30,64,175,0.18);
+      color:#1e40af;
+    }
+
+    .reports-category.women .reports-category-tag{
+      background:#fce7f3;
+      border-color:rgba(157,23,77,0.18);
+      color:#9d174d;
+    }
+
+    .reports-category.hw .reports-category-tag{
+      background:#d1fae5;
+      border-color:rgba(6,95,70,0.18);
+      color:#065f46;
+    }
+
 
     .reports-category-chevron {
       font-size: 0.85rem;
       opacity: 0.7;
+    }
+
+    /* Smooth rotate animation on expand / collapse */
+    .reports-category-chevron {
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    details[open] .reports-category-chevron {
+      transform: rotate(180deg);
+      opacity: 0.9;
+    }
+
+    .reports-category summary:hover .reports-category-chevron {
+      opacity: 1;
     }
 
     .reports-category-body {
@@ -924,7 +965,7 @@
   </a>
 
 </div>
-
+F
         <a id="pb-navigator"></a>
         <div class="powerbi-container">
           <iframe title="GH-HeMAB"
@@ -954,7 +995,7 @@
                 <div class="reports-category-title">
                   HH Members – QA Reports
                 </div>
-                <div class="reports-category-tag">Household Members</div>
+                <div class="reports-category-tag">🏠 Household Members</div>
                 <div class="reports-category-chevron">▾</div>
               </div>
             </summary>
@@ -1068,7 +1109,7 @@
                 <div class="reports-category-title">
                   Women Tool – QA Reports
                 </div>
-                <div class="reports-category-tag">Women</div>
+                <div class="reports-category-tag">👩 Women Tool</div>
                 <div class="reports-category-chevron">▾</div>
               </div>
             </summary>
@@ -1182,7 +1223,7 @@
                 <div class="reports-category-title">
                   Health Workers – QA Reports
                 </div>
-                <div class="reports-category-tag">Health Workers</div>
+                <div class="reports-category-tag">🩺 Health Workers</div>
                 <div class="reports-category-chevron">▾</div>
               </div>
             </summary>

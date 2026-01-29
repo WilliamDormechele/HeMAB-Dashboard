@@ -210,19 +210,6 @@ recordid,start,fwcode,respid,member,section,errtype,varname,errordesc
 1236,02dec2025 12:46:26,AJ,UNK,Member 1 DB,Section C – KAP,Missing,c6_1,Missing C6 response (c6_1) when interview was conducted (a1_1 = 1)
 1269,02dec2025 17:10:46,AJ,NAC000056001018,Member 1 DB,Section C – KAP,Missing,c6_1,Missing C6 response (c6_1) when interview was conducted (a1_1 = 1)
 1333,13jan2026 16:34:37,ZC,HHcode -- CAL0000740,Member 1 DB,Section C – KAP,Missing,c6_1,Missing C6 response (c6_1) when interview was conducted (a1_1 = 1)
-82,28nov2025 17:10:09,AA,EAE000073001043,Member 1 DB,Section B – Asset based equity tool,Incomplete,b_7,Incomplete required Section B item b_7 (water/toilet/fuel/floor) for an eligible respondent.
-82,28nov2025 17:10:09,AA,EAE000073001043,Member 1 DB,Section B – Asset based equity tool,Incomplete,b_6,Incomplete required Section B item b_6 (water/toilet/fuel/floor) for an eligible respondent.
-82,28nov2025 17:10:09,AA,EAE000073001043,Member 1 DB,Section B – Asset based equity tool,Incomplete,b_5,Incomplete required Section B item b_5 (water/toilet/fuel/floor) for an eligible respondent.
-82,28nov2025 17:10:09,AA,EAE000073001043,Member 1 DB,Section B – Asset based equity tool,Incomplete,b_4,Incomplete required Section B item b_4 (water/toilet/fuel/floor) for an eligible respondent.
-82,28nov2025 17:10:09,AA,EAE000073001043,Member 1 DB,Section B – Asset based equity tool,Incomplete,b_2,Incomplete required item b_2 (yes/no) for eligible respondent in Section B.
-82,28nov2025 17:10:09,AA,EAE000073001043,Member 1 DB,Section B – Asset based equity tool,Incomplete,b_1_4,Incomplete required Section B asset item b_1_4 for an eligible respondent (must be coded 0 = No or 1 = Yes).
-82,28nov2025 17:10:09,AA,EAE000073001043,Member 1 DB,Section B – Asset based equity tool,Incomplete,b_1_3,Incomplete required Section B asset item b_1_3 for an eligible respondent (must be coded 0 = No or 1 = Yes).
-82,28nov2025 17:10:09,AA,EAE000073001043,Member 1 DB,Section B – Asset based equity tool,Incomplete,b_1_1,Incomplete required Section B asset item b_1_1 for an eligible respondent (must be coded 0 = No or 1 = Yes).
-82,28nov2025 17:10:09,AA,EAE000073001043,Member 1 DB,Section A2 – Built environment,Incomplete,a2_2_other,Incomplete Section A2 item: a2_2_other. Other (a2_2_other) for respondent eligible for A2.
-82,28nov2025 17:10:09,AA,EAE000073001043,Member 1 DB,Section A2 – Built environment,Incomplete,a2_2_4,Incomplete Section A2 item: a2_2_4. Air conditioning (a2_2_4) for respondent eligible for A2.
-82,28nov2025 17:10:09,AA,EAE000073001043,Member 1 DB,Section A2 – Built environment,Incomplete,a2_2_2,Incomplete Section A2 item: a2_2_2. White paint on the roof (a2_2_2) for respondent eligible for A2.
-82,28nov2025 17:10:09,AA,EAE000073001043,Member 1 DB,Section A2 – Built environment,Incomplete,a2_2_1,"Incomplete Section A2 item: a2_2_1. Green roof (straw, typha, etc.) (a2_2_1) for respondent eligible for A2."
-82,28nov2025 17:10:09,AA,EAE000073001043,Member 1 DB,Section A2 – Built environment,Incomplete,a2_1,Incomplete Section A2 item: a2_1. Is the house well ventilated naturally? (a2_1) for respondent eligible for A2.
 32,02dec2025 14:48:46,AJ,HHcode -- CAM0000110,Member 2 DB,Section A – Household Demographic and SES,Missing,a1_8,Missing religion (a1_8) when interview was conducted (a1_1 = Yes)
 34,11dec2025 08:42:36,AJ,HHcode -- CAM0000200,Member 2 DB,Section A – Household Demographic and SES,Missing,a1_8,Missing religion (a1_8) when interview was conducted (a1_1 = Yes)
 1236,02dec2025 12:46:26,AJ,HHcode -- WEF0001110,Member 2 DB,Section A – Household Demographic and SES,Missing,a1_8,Missing religion (a1_8) when interview was conducted (a1_1 = Yes)
