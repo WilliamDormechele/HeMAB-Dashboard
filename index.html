@@ -773,6 +773,20 @@
       text-transform:none; /* remove forced uppercase */
     }
 
+    /* X / Y available counter badge inside the category chip */
+    .category-count {
+      display: inline-flex;
+      align-items: center;
+      margin-left: 6px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      background: rgba(255,255,255,0.75);
+      border: 1px solid rgba(0,0,0,0.08);
+    }
+
     /* Category-specific chip colors */
     .reports-category.hh .reports-category-tag{
       background:#dbeafe;
@@ -1646,24 +1660,52 @@ F
 
       function initReportLinkChecks() {
         const reportLinks = document.querySelectorAll(".report-link[data-check='exists']");
-        reportLinks.forEach(link => {
-          const url = link.getAttribute("href");
-          if (!url) return;
 
-          // Use HEAD to just check existence
-          fetch(url, { method: "HEAD" })
+        // Build one promise per link so we know when ALL checks are complete
+        const checks = Array.from(reportLinks).map(link => {
+          const url = link.getAttribute("href");
+          if (!url) return Promise.resolve();
+
+          return fetch(url, { method: "HEAD" })
             .then(res => {
               if (res.ok) {
-                // file exists
                 link.classList.add("has-file");
               } else {
-                // file missing
                 markNoFile(link);
               }
             })
             .catch(() => {
               markNoFile(link);
             });
+        });
+
+        // Return a promise that resolves when all link checks are done
+        return Promise.all(checks);
+      }
+
+      function updateCategoryCounters() {
+        const categories = document.querySelectorAll("details.reports-category");
+
+        categories.forEach(cat => {
+          const tag = cat.querySelector(".reports-category-tag");
+          if (!tag) return;
+
+          // Count all report links in this category that participate in checks
+          const links = cat.querySelectorAll(".report-link[data-check='exists']");
+          const total = links.length;
+
+          // "Available" means has-file (set by your HEAD checks)
+          const available = cat.querySelectorAll(".report-link[data-check='exists'].has-file").length;
+
+          // Remove an old counter if we already added one (prevents duplicates)
+          const old = tag.querySelector(".category-count");
+          if (old) old.remove();
+
+          // Add counter badge
+          const badge = document.createElement("span");
+          badge.className = "category-count";
+          badge.textContent = `${available} / ${total} available`;
+          tag.appendChild(badge);
         });
       }
 
@@ -1694,15 +1736,15 @@ F
       }
 
 
-      window.addEventListener("load", () => {
-        initReportLinkChecks();
+      window.addEventListener("load", async () => {
+        await initReportLinkChecks();     // wait until file existence checks finish
+        updateCategoryCounters();         // now counters are accurate
+
         setTimeout(enableDownloadToasts, 600);
 
         loadLastRefresh();  // Last updated
         loadBuildInfo();    // Build number + version
       });
-
-
 
 
         // ---------- TOAST HELPERS (stacked, clickable, with icons) ----------
