@@ -558,6 +558,22 @@
   box-shadow: none;
 }
 
+/* Disable / grey-out download badge when no file */
+.report-link.no-file .download-badge {
+  background: #e5e7eb;
+  border-color: #d1d5db;
+  color: #9ca3af;
+  box-shadow: none;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.report-link.no-file:hover {
+  background: #f9fafb;
+  box-shadow: none;
+  transform: none;
+}
+
 .report-link.no-file .fw-code {
   color: #9ca3af;
 }
@@ -566,6 +582,14 @@
   content: " – no queries";
   font-style: italic;
   color: #9ca3af;
+}
+
+.report-link.no-file .download-badge::after {
+  content: "Not available";
+}
+
+.report-link.no-file .download-badge {
+  font-size: 0.7rem;
 }
 
 /* Error / query links that DO have a file */
